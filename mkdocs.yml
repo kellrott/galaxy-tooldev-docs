@@ -6,4 +6,5 @@ pages:
 - [03_ToolDev.md, Tool Development]
 - [04_ToolWrapper.md, Tool Wrapper Syntax]
 - [05_Docker.md, Docker]
-- [06_Glossary.md, Glossary]
+- [06_Example.md, Example Project]
+- [07_Glossary.md, Glossary]
