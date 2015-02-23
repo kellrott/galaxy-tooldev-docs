@@ -1,26 +1,8 @@
-Install [Google Cloud SDK](https://developers.google.com/cloud/sdk/) on your local machine.
-
-#Starting up Galaxy Development Server
-
-${youtube?videoId=jnarp%2Dj12lw}
-
-We need better screen casts
-
-#Composing a Dockerfile
-${youtube?videoId=S%2DEOr9a5lr8}
-
-
-#Galaxy Tool Wrappers
-
-${youtube?videoId=kphYnONMOP8}
-We need better screen casts
-
-#Running the DREAM submission script
 
 
 
-Summary
-Every tool deployed in the UCSC NCI-Cluster environment requires two components; a ‘container image’ that describes the software dependencies required for running an analysis and a tool wrapper description the describes the command line used to invoke that tool and the different inputs and parameters used when invoking a tool.
+Galaxy Tool Development
+=======================
 
 The software dependencies are managed by Docker (http://docker.io). A Docker build script is the set of instructions used to create the environment needed to run a specific software package (e.g. Samtools).  This build script can then be executed on any system running the Docker service.  The produced container image can be viewed as a ‘light-weight VM’, which should cover all software dependencies regardless of programming language or SDK. The software container provides an easy way to package up all dependencies and move them to a target machine where the program will actually be run.
 

@@ -1,6 +1,4 @@
 
-Collaborator -  An group external to UCSC who wish to submit their tool (e.g. variant caller) to UCSC to run on the UCSC NCI cluster.  
-
 Container - An encapsulated runtime environment that contains all of the dependencies needed to run a particular piece of software. Unlike a traditional VM, it shares the kernel and filesystem of the parent OS. Special APIs in the linux kernel keep the container ‘sandboxed’ in its own environment.
 
 Docker - made up of both a service which runs on the host system and a set of instructions which are used to build a docker container image and then run it. Docker provides a simple interface to complex container environment APIs that have been added into the Linux Kernel.

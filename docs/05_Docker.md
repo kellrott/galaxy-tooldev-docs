@@ -1,6 +1,8 @@
 
 Producing Tool Containers with Docker
-To run a collaborator’s tool (e.g. variant caller) on a compute cluster, such as the workflow system on the UCSC NCI-Cluster, there needs to be a “Dockerfile” which describes all dependencies and environmental setup required to run the tool.  This includes any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies.  
+=====================================
+
+To run a collaborator’s tool (e.g. variant caller) on a compute cluster, there needs to be a “Dockerfile” which describes all dependencies and environmental setup required to run the tool.  This includes any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies.  
 
 Dockerfiles use a ‘fork and commit’ strategy similar to github. You can start from a predefined system, and make small alterations on top of it. Avalible images can be found at https://registry.hub.docker.com/.
 
