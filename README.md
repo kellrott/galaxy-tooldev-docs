@@ -14,3 +14,10 @@ To serve the website (for testing)
 ```
 mkdocs serve
 ```
+
+
+To push docs to Synapse project
+
+```
+./synapse_push.py
+```
