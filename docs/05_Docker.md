@@ -2,11 +2,11 @@
 Producing Tool Containers with Docker
 =====================================
 
-To run a collaborator’s tool (e.g. variant caller) on a compute cluster, there needs to be a “Dockerfile” which describes all dependencies and environmental setup required to run the tool.  This includes any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies.  
+To run a collaborator's tool (e.g. variant caller) on a compute cluster, there needs to be a "Dockerfile" which describes all dependencies and environmental setup required to run the tool.  This includes any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies.  
 
-Dockerfiles use a ‘fork and commit’ strategy similar to github. You can start from a predefined system, and make small alterations on top of it. Avalible images can be found at https://registry.hub.docker.com/.
+Dockerfiles use a 'fork and commit' strategy similar to github. You can start from a predefined system, and make small alterations on top of it. Avalible images can be found at https://registry.hub.docker.com/.
 
-The Mutect Build starts with the ‘java’ image, which contains java pre-installed.
+The Mutect Build starts with the 'java' image, which contains java pre-installed.
 
 ```
 FROM java
@@ -34,11 +34,11 @@ RUN unzip picard-tools-1.122.zip
 # Link the picard tools to /opt/picard
 RUN ln -s picard-tools-1.122 picard
 ```
-From there, the system issues ‘apt-get’ commands (the Debian package management system) to install zip, wget, samtools and pip. Pip is then used to install PyVCF. Zip files for MuTect and Picard are downloaded and unzipped (in /opt, which was defined as the ‘WORKDIR’).
+From there, the system issues 'apt-get' commands (the Debian package management system) to install zip, wget, samtools and pip. Pip is then used to install PyVCF. Zip files for MuTect and Picard are downloaded and unzipped (in /opt, which was defined as the 'WORKDIR').
 
-Once a docker file is built it should be tested on the collaborator’s local host system using a pre-installed Docker service before submission to the target host system (e.g. UCSC NCI cluster).  The following links should help in understanding how to install/configure the docker service, create a docker container, and run it on the docker instance.
+Once a docker file is built it should be tested on the collaborator's local host system using a pre-installed Docker service before submission to the target host system (e.g. UCSC NCI cluster).  The following links should help in understanding how to install/configure the docker service, create a docker container, and run it on the docker instance.
 
-Docker’s own basic interactive tutorial:
+Docker's own basic interactive tutorial:
 https://www.docker.com/tryit/
 
 A written step-by-step guide to creating docker files and running them is here:

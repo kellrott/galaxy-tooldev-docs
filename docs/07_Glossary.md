@@ -1,7 +1,7 @@
 
 Container
 ---------
-An encapsulated runtime environment that contains all of the dependencies needed to run a particular piece of software. Unlike a traditional VM, it shares the kernel and filesystem of the parent OS. Special APIs in the linux kernel keep the container ‘sandboxed’ in its own environment.
+An encapsulated runtime environment that contains all of the dependencies needed to run a particular piece of software. Unlike a traditional VM, it shares the kernel and filesystem of the parent OS. Special APIs in the linux kernel keep the container sandboxed in its own environment.
 
 Docker
 ------
@@ -9,11 +9,11 @@ made up of both a service which runs on the host system and a set of instruction
 
 Docker container build file (Dockerfile)
 ----------------------------------------
-a text file which contains the set of instructions which define all the dependencies (including OS) and environmental settings a piece of software needs to run.  Containers can also include commands to execute either during the build (“RUN” instructions) or during the execution of the software (“CMD” instructions).
+a text file which contains the set of instructions which define all the dependencies (including OS) and environmental settings a piece of software needs to run.  Containers can also include commands to execute either during the build ("RUN" instructions) or during the execution of the software ("CMD" instructions).
 
 Docker Image
 ------------
-The compiled result of a ‘Dockerfile’. This is the actual file system of the container as an archive. When a container is initialized, a copy of the image is used as start point.
+The compiled result of a 'Dockerfile'. This is the actual file system of the container as an archive. When a container is initialized, a copy of the image is used as start point.
 
 Host system
 -----------
