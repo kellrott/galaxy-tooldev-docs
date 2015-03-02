@@ -22,6 +22,8 @@ The Galaxy Tool Standard Development Kit (SDK) is named Planemo. Part of Planemo
 is a Virtual Machine Image
 
 
+VM Based Development
+====================
 
 Once logged into the SDK
 
@@ -40,7 +42,7 @@ planemo tool_init
 planemo docker_build
 ```
 
-5) Edit wrapper. Check the file synax with
+5) Edit wrapper. Check the file syntax with
 ```
 planemo lint my_cool_tool.xml
 ```
@@ -52,3 +54,51 @@ the command
 ```
 supervisorctl restart galaxy:
 ```
+
+Docker based Development
+========================
+
+Download the most update SDK docker image
+```
+docker pull planemo/box
+```
+
+Deploy SDK
+```
+docker run -v `pwd`:/opt/galaxy/tools -v /var/lib/docker.sock:/var/lib/docker.sock -p 8080:80 --name planemo planemo/box
+```
+
+Note: If you get the error message
+```
+FATA[0000] Error response from daemon: Conflict, The name planemo is already assigned to 0109fd956412. You have to delete (or rename) that container to be able to assign planemo to a container again.
+
+```
+
+You can either restart the server with
+```
+docker start -a planemo
+```
+
+Or delete the server before starting again
+```
+docker rm -v planemo
+```
+
+
+Obtain a command line inside the
+```
+docker exec -i -t planemo /bin/bash
+```
+
+Working on Examples
+===================
+
+1) Obtain the example tool set
+```
+git clone https://github.com/ucscCancer/smc_het_example
+cd smc_het_example
+```
+
+2) Launch the development server
+
+3) The example program "DPC", should appear in the window
