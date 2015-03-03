@@ -65,7 +65,7 @@ docker pull planemo/box
 
 Deploy SDK
 ```
-docker run -v `pwd`:/opt/galaxy/tools -v /var/lib/docker.sock:/var/lib/docker.sock -p 8080:80 --name planemo planemo/box
+docker run -v `pwd`:/opt/galaxy/tools -v /var/run/docker.sock:/var/run/docker.sock -p 8080:80 --name planemo planemo/box
 ```
 
 Note: If you get the error message
