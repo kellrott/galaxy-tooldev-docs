@@ -3,6 +3,7 @@
 import synapseclient
 import yaml
 import os
+import re
 
 PROJECT_ID = "syn2786217"
 WIKI_BASE  = "74384"
