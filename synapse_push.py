@@ -8,8 +8,28 @@ PROJECT_ID = "syn2786217"
 WIKI_BASE  = "74384"
 SECTION_BASE = "3.5"
 
-def markdown_clean(txt):
-    return unicode(txt)
+
+def markdown_clean(txt, encoding="utf-8"):
+    """
+    Escape characters used in Synapse markdown. Input string should be either an
+    ascii string (str) or a unicode string.
+    """
+
+    ## make an effort to coerce the string into a unicode string
+    try:
+        txt = unicode(txt)
+    except UnicodeDecodeError:
+        try:
+            txt = unicode(txt, encoding="UTF-8", errors="replace")
+        except UnicodeDecodeError:
+            pass
+
+    ## Synapse uses # and ## rather than ==== and ---- for headings
+    txt = re.sub(r"^(.*?)\n(=)+$", r"# \1", txt, flags=re.MULTILINE)
+    txt = re.sub(r"^(.*?)\n(-)+$", r"## \1", txt, flags=re.MULTILINE)
+
+    return txt.encode(encoding)
+
 
 if __name__ == "__main__":
     syn = synapseclient.Synapse()
