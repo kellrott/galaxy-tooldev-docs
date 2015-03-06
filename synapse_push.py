@@ -3,10 +3,23 @@
 import synapseclient
 import yaml
 import os
+import cgi
 
 PROJECT_ID = "syn2786217"
 WIKI_BASE  = "74384"
 SECTION_BASE = "3.5"
+
+
+def html_encode_code_blocks(txt):
+    pieces = txt.split("```")
+    results = []
+    for i,piece in enumerate(pieces):
+        ## if we're inside a code block, HTML encode the content
+        if i % 2 == 1:
+            results.append(cgi.escape(piece))
+        else:
+            results.append(piece)
+    return "```".join(results)
 
 
 def markdown_clean(txt, encoding="utf-8"):
@@ -27,6 +40,8 @@ def markdown_clean(txt, encoding="utf-8"):
     ## Synapse uses # and ## rather than ==== and ---- for headings
     txt = re.sub(r"^(.*?)\n(=)+$", r"# \1", txt, flags=re.MULTILINE)
     txt = re.sub(r"^(.*?)\n(-)+$", r"## \1", txt, flags=re.MULTILINE)
+
+    txt = html_encode_code_blocks(txt)
 
     return txt.encode(encoding)
 
