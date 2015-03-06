@@ -87,11 +87,15 @@ rather than
 ```
 -o recal_data.table
 ```
+
+The with this feature, the output stanza becomes:
+```
 <outputs>
 <data format="txt" name="output_report" label="BQSR Report" from_work_dir="recal_data.table"/>
 <data format="bam" name="output_bam" label="BQSR BAM" from_work_dir="output.bam"/>
 </outputs>
 ```
+
 Then the actual shell script which runs the command (this leverages the "configfile" directive though technically not a configuration file):
 
 ```
