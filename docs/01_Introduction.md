@@ -73,9 +73,28 @@ cd /opt/galaxy/tools
 Google Cloud Engine based Deployment
 ====================================
 
-
 For GCE Based SDK first Install [Google Cloud SDK](https://developers.google.com/cloud/sdk/) on your local machine.
 
+This section will help you set up a compute instance and a persistent disk containing challenge data. For most steps, you can choose to use either the Developers Console web interface or the Google Cloud SDK command line tools ("gcutil" and "gsutil"). [This page](https://developers.google.com/compute/docs/console) is a good short intro/summary of how to use the console:
+
+The main steps in this procedure are:
+
+1) create a persistent disk big enough to hold the data
+2) create an instance and attach the disk
+3) mount and format the disk
+4) copy data to the disk
+
+To start up the Planemo Machine under GCE:
+
+Load the image into your account
+```
+gcloud --project="YOUR-PROJECT" addimage planemo_machine_image http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
+```
+
+From there start up a server
+```
+gcutil launch image <- please fix this
+```
 
 Docker based Development
 ========================
