@@ -13,9 +13,8 @@ cd smc_het_example
 
 3) The example program "DPC", should appear in the window
 
-
-
 Once logged into the SDK
+------------------------
 
 1) In '/opt/galaxy/tools' run
 ```
@@ -23,7 +22,6 @@ planemo tool_init
 ```
 
 2) Reload the Galaxy panel. You tool should now appear in the list of tools
-
 
 3) Build Dockerfile to describe how your container is built
 
@@ -45,12 +43,8 @@ the command
 supervisorctl restart galaxy:
 ```
 
-
-
-
-
 Wrapper
--------
+=======
 ```
 <tool id="${TOOL_ID}" name="${TOOL_NAME}" version="1.0.0">
     <description>Put Description Here</description>
@@ -85,8 +79,7 @@ You should totally explain how to use your tool here
 
 
 R Code
-------
-
+======
 ```
 
 mutationBurdenToMutationCopyNumber<-function(burden,totalCopyNumber,cellularity,normalCopyNumber = rep(2,length(burden))){

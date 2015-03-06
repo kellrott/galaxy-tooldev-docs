@@ -26,9 +26,9 @@ Vagrant Based Development
 ====================
 
 
-The latest version`Vagrant`_ version of the planemo appliance can be found
-`here <https://images.galaxyproject.org/planemo/latest.box>`_. Once you have
-installed `Vagrant`_ (`download now <http://www.vagrantup.com/downloads>`_),
+The latest version of the planemo appliance can be found
+at https://images.galaxyproject.org/planemo/latest.box. Once you have
+installed Vagrant (download now at http://www.vagrantup.com/downloads),
 the appliance can be enabled by first creating a `Vagrantfile` in your tool
 directory - the following demonstrates an example of such file.
 
@@ -49,11 +49,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 end
 ```
 
-This file must literally be named ``Vagrantfile``. Next you will need to
+This file must literally be named `Vagrantfile`. Next you will need to
 startup the appliance. This is as easy as
 
 ```
-    vagrant up
+vagrant up
 ```
 
 From this point, you can point your webbrowser to http://localhost:8010/ to log into the
@@ -61,17 +61,14 @@ Galaxy server
 
 
 To access the command line inside the virtual machine
-
 ```
 vagrant ssh
 ```
 
 You can get change to the tool directory with
-
 ```
 cd /opt/galaxy/tools
 ```
-
 
 Google Cloud Engine based Deployment
 ====================================
