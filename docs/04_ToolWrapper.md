@@ -84,8 +84,8 @@ Then define the necessary outputs. Note the optional `from_work_dir` parameter, 
 -o ${output_report}
 ```
 rather than
-```-o recal_data.table```
-
+```
+-o recal_data.table
 ```
 <outputs>
 <data format="txt" name="output_report" label="BQSR Report" from_work_dir="recal_data.table"/>
