@@ -2,13 +2,12 @@
 Getting Started
 ===============
 
+Planemo-Machine is a Galaxy Tool Standard Development Kit (SDK) designed to
+make developing Docker based Galaxy tools easy. It has an installed copy of Galaxy,
+an up to date version of Docker, a web based IDE and the Planemo tools.
 
-
-
-
-Development Life Cycle
-======================
-
+With this system, which can be deployed on a variety of virtual machine services,
+you can quickly develop and test new tools and see how they behave in the Galaxy environment.
 To develop a Galaxy wrapped tool, the steps are:
 
 1) Create a Docker container capable of running your tool
@@ -18,42 +17,68 @@ To develop a Galaxy wrapped tool, the steps are:
 3) Test the tool inside a Galaxy environment to debug issues
 
 
-The Galaxy Tool Standard Development Kit (SDK) is named Planemo. Part of Planemo
-is a Virtual Machine Image
+Before any development can happen, you must first deploy a Planemo-Machine in your VM
+system of choice. The current deployment options are: Google Cloud Engine,
+Virtual Box and Docker.
 
 
-VM Based Development
+Vagrant Based Development
 ====================
 
-Once logged into the SDK
 
-1) In '/opt/galaxy/tools' run
+The latest version`Vagrant`_ version of the planemo appliance can be found
+`here <https://images.galaxyproject.org/planemo/latest.box>`_. Once you have
+installed `Vagrant`_ (`download now <http://www.vagrantup.com/downloads>`_),
+the appliance can be enabled by first creating a `Vagrantfile` in your tool
+directory - the following demonstrates an example of such file.
+
 ```
-planemo tool_init
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "planemo"
+  config.vm.box_url = "https://images.galaxyproject.org/planemo/latest.box"
+
+  # Forward nginx.
+  config.vm.network "forwarded_port", guest: 80, host: 8010
+
+  # Disable default mount and mount pwd to /opt/galaxy/tools instead.
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder ".", "/opt/galaxy/tools", owner: "vagrant"
+
+end
 ```
 
-2) Reload the Galaxy panel. You tool should now appear in the list of tools
+This file must literally be named ``Vagrantfile``. Next you will need to
+startup the appliance. This is as easy as
 
-
-3) Build Dockerfile to describe how your container is built
-
-4) Run docker build to construct a working container
 ```
-planemo docker_build
+    vagrant up
 ```
 
-5) Edit wrapper. Check the file syntax with
+From this point, you can point your webbrowser to http://localhost:8010/ to log into the
+Galaxy server
+
+
+To access the command line inside the virtual machine
+
 ```
-planemo lint my_cool_tool.xml
+vagrant ssh
 ```
 
-6) Test your tool
+You can get change to the tool directory with
 
-Note: If you think that Galaxy is failing dynamically to reload your tool. Use
-the command
 ```
-supervisorctl restart galaxy:
+cd /opt/galaxy/tools
 ```
+
+
+Google Cloud Engine based Deployment
+====================================
+
+
+For GCE Based SDK first Install [Google Cloud SDK](https://developers.google.com/cloud/sdk/) on your local machine.
+
 
 Docker based Development
 ========================
@@ -65,7 +90,7 @@ docker pull planemo/box
 
 Deploy SDK
 ```
-docker run -v `pwd`:/opt/galaxy/tools -v /var/run/docker.sock:/var/run/docker.sock -p 8080:80 --name planemo planemo/box
+docker run -v `pwd`:/opt/galaxy/tools -v /var/run/docker.sock:/var/run/docker.sock -p 8010:80 -e GALAXY_DOCKER_ENABLED=true -e GALAXY_DOCKER_SUDO=true -e GALAXY_DOCKER_VOLUMES_FROM=planemo --name planemo planemo/box
 ```
 
 Note: If you get the error message
@@ -84,21 +109,7 @@ Or delete the server before starting again
 docker rm -v planemo
 ```
 
-
 Obtain a command line inside the
 ```
 docker exec -i -t planemo /bin/bash
 ```
-
-Working on Examples
-===================
-
-1) Obtain the example tool set
-```
-git clone https://github.com/ucscCancer/smc_het_example
-cd smc_het_example
-```
-
-2) Launch the development server
-
-3) The example program "DPC", should appear in the window

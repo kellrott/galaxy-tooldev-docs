@@ -2,9 +2,8 @@ site_name: Galaxy Tool Dev
 pages:
 - [index.md, Home]
 - [01_Introduction.md, Introduction]
-- [02_SDK.md, Galaxy SDK]
-- [03_ToolDev.md, Tool Development]
+- [02_Examples.md, Working With Examples]
+- [03_Docker.md, Docker]
 - [04_ToolWrapper.md, Tool Wrapper Syntax]
-- [05_Docker.md, Docker]
-- [06_Example.md, Example Project]
-- [07_Glossary.md, Glossary]
+- [05_ToolDev.md, Tool Development]
+- [06_Glossary.md, Glossary]
