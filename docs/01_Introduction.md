@@ -86,11 +86,39 @@ The main steps in this procedure are:
 
 To start up the Planemo Machine under GCE:
 
-Load the image into your account
+If you haven't already done it, run the Google Cloud SDK login
 ```
-gcloud --project="YOUR-PROJECT" addimage planemo_machine_image http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
+gcloud auth login
 ```
 
+Load the image into your account, replace YOUR-PROJECT-NAME with the Google cloud project
+that you want to run the VM inside of
+```
+gcutil --project="YOUR-PROJECT-NAME" addimage planemo-machine-image http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
+```
+
+To deploy via the web interface
+-------------------------------
+1) Go to your console at https://console.developers.google.com
+2) Select the project you want to deploy under
+3) Under the left hand menu, select Compute -> Compute Engine -> VM Instances
+4) If a dialog pops up asking what you want to do, select 'Create Instance', otherwise click the
+'New Instance' button
+5) Fill out the instance creation dialog, this will include
+5.1) Set the name
+5.2) Allow HTTP and HTTPS traffic
+5.3) Select the Zone you want to deploy in
+5.4) Select the machine type of choice, a system with at least 6GB of RAM is expected
+5.5) For the Boot Disk, Select 'New Disk From Image'
+5.6) For the image, Select 'planemo-machine-image'
+6) Hit Create
+7) To see your instance list, navigate back to Compute -> Compute Engine -> VM Instances
+8) If you click the IP address for the instance you should be directed the the home page of you newly
+create Galaxy SDK instance
+
+
+To deploy via command line interface
+------------------------------------
 From there start up a server
 ```
 gcutil launch image <- please fix this
