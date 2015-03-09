@@ -58,6 +58,10 @@ supervisorctl restart galaxy:
 Docker based Development
 ========================
 
+Please note: Docker based deployment requires the user to install and run docker
+well as setup 'Docker-By-Docker' deployment, so it is considered an option only for
+'advanced users'
+
 Download the most update SDK docker image
 ```
 docker pull planemo/box
