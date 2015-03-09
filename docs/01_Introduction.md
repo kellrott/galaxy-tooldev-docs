@@ -97,6 +97,18 @@ that you want to run the VM inside of
 gcutil --project="YOUR-PROJECT-NAME" addimage planemo-machine-image http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
 ```
 
+To deply via command line interface
+```
+user@ubuntu:~$ gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
+Created [https://www.googleapis.com/compute/v1/projects/level-elevator-666/zones/us-central1-f/instances/planemo].
+NAME    ZONE          MACHINE_TYPE  INTERNAL_IP    EXTERNAL_IP    STATUS
+planemo us-central1-f n1-standard-2 10.240.143.115 162.222.182.19 RUNNING
+
+```
+
+Now if you navigate to the listed EXTERNAL_IP, you will find the running Planemo-Machine
+
+
 To deploy via the web interface
 -------------------------------
 1) Go to your console at https://console.developers.google.com
