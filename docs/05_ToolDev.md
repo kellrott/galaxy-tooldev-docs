@@ -4,14 +4,14 @@ Tool Development
 
 Galaxy tool files are just simple XML files, so at this point one could just
 open a text editor and start implementing the tool. Planemo has a command
-``tool_init`` to quickly generate some of the boilerplate XML, so lets
+`tool_init` to quickly generate some of the boilerplate XML, so lets
 start by doing that.
 
-::
+```
+% planemo tool_init --id 'seqtk_seq' --name 'Convert to FASTA (seqtk)'
+```
 
-    % planemo tool_init --id 'seqtk_seq' --name 'Convert to FASTA (seqtk)'
-
-The ``tool_init`` command can take various complex arguments - but the two
+The `tool_init` command can take various complex arguments - but the two
 most basic ones are shown above ``--id`` and ``--name``. Every Galaxy tool
 needs an ``id`` (this a short identifier used by Galaxy itself to identify the
 tool) and a ``name`` (this is display to the Galaxy user and should be a short
@@ -21,8 +21,9 @@ should not.
 The above command will generate the file ``seqtk_seq.xml`` - which should look
 like this.
 
-.. literalinclude:: writing/seqtk_seq_v1.xml
-   :language: xml
+```
+Put xml block here
+```
 
 This tool file has the common sections required for Galaxy tool but you will
 still need to open up the editor and fill out the command template, describe
@@ -33,8 +34,7 @@ use the test command we generated above ``seqtk seq -a 2.fastq > 2.fasta`` as
 an example to generate a command block by specifing the inputs and the outputs
 as follows.
 
-::
-
+```
     % planemo tool_init --force \
                         --id 'seqtk_seq' \
                         --name 'Convert to FASTA (seqtk)' \
@@ -42,12 +42,13 @@ as follows.
                         --example_command 'seqtk seq -a 2.fastq > 2.fasta' \
                         --example_input 2.fastq \
                         --example_output 2.fasta
+```
 
 This will generate the following tool XML file - which now has correct
 definitions for the input and output as well as an actual command template.
-
-.. literalinclude:: writing/seqtk_seq_v2.xml
-   :language: xml
+```
+include  writing/seqtk_seq_v2.xml
+```
 
 As shown above the command ``seqtk seq`` generates a help message for this the
 ``seq`` command. ``tool_init`` can take that help message and stick it right
@@ -56,8 +57,8 @@ command help messages aren't exactly appropriate for Galaxy tool wrappers
 since they mention argument names and simillar details that are abstracted
 away by the tool - but they can be a good place to start.
 
-::
 
+```
     % planemo tool_init --force \
                         --id 'seqtk_seq' \
                         --name 'Convert to FASTA (seqtk)' \
@@ -67,9 +68,11 @@ away by the tool - but they can be a good place to start.
                         --example_output 2.fasta \
                         --test_case \
                         --help_from_command 'seqtk seq'
+```
 
-.. literalinclude:: writing/seqtk_seq_v3.xml
-   :language: xml
+```
+include literalinclude:: writing/seqtk_seq_v3.xml
+```
 
 At this point we have a fairly a functional tool with test and help. This was
 a pretty simple example - usually you will need to put more work into the tool
@@ -80,8 +83,7 @@ Now lets lint and test the tool we have developed. The planemo ``lint`` (or
 just ``l``) command will reviews tools for obvious mistakes and compliance
 with best practices.
 
-::
-
+```
     % planemo l
     Linting tool /home/john/test/seqtk_seq.xml
     Applying linter lint_top_level... CHECK
@@ -101,6 +103,7 @@ with best practices.
     .. INFO: Tool contains a command.
     Applying linter lint_citations... WARNING
     .. WARNING: No citations found, consider adding citations to your tool.
+```
 
 By default ``lint`` will find all the tools in your current working directory,
 but we could have specified a particular tool with ``planemo lint
@@ -112,22 +115,12 @@ Next we can run our tool's functional test with the ``test`` (or just ``t``)
 command. This will print a lot of output but should ultimately reveal our one
 test passed.
 
-::
-
+```
     % planemo --galaxy_root=/path/to/galaxy t
     ...
     All 1 test(s) executed passed.
     seqtk_seq[0]: passed
-
-Now we can open Galaxy
-
-::
-
-    % planemo --galaxy_root=/path/to/galaxy s
-    ...
-    serving on http://127.0.0.1:9090
-
-Open up http://127.0.0.1:9090 in a web browser to view your new tool.
+```
 
 More information:
 

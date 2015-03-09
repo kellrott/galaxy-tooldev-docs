@@ -38,17 +38,17 @@ What follows is an annotated version of the GATK BQSR wrapper XML file:
 
 Basic tool information first:
 ```
-&lt;tool id="gatk_bqsr" name="GATK BQSR" version="1.0.0"&gt;
+<tool id="gatk_bqsr" name="GATK BQSR" version="1.0.0">
 ```
 Then a simple description of the tool:
 ```
-&lt;description&gt;base quality score recalibration&lt;/description&gt;
+<description>base quality score recalibration</description>
 ```
 One docker container image file needs to be specified; put all dependencies + environmental setup in it:
 ```
-&lt;requirements&gt;
-&lt;container type="docker"&gt;gatk&lt;/container&gt;
-&lt;/requirements&gt;
+<requirements>
+<container type="docker">gatk</container>
+</requirements>
 ```
 
 Images can be provided in one of two ways:
@@ -56,9 +56,9 @@ Use an image that has been uploaded to the Docker Registry https://registry.hub.
 
 For Example, the stanza
 ```
-&lt;requirements&gt;
-&lt;container type="docker"&gt;sjackman/bwa&lt;/container&gt;
-&lt;/requirements&gt;
+<requirements>
+<container type="docker">sjackman/bwa</container>
+</requirements>
 ```
 Would download the container image avalible from https://registry.hub.docker.com/u/sjackman/bwa/ and use it to run the tool.
 
@@ -68,35 +68,39 @@ Provide a 'Dockerfile' in the same directory as the tool wrapper.  This file wil
 
 Next is the directive to run the wrapper shell script:
 ```
-&lt;command interpreter="bash"&gt;$runscript&lt;/command&gt;
+<command interpreter="bash">$runscript</command>
 
 Next, define the necessary inputs:
 
-&lt;inputs&gt;
-&lt;param format="bam"   type="data" name="input_bam"      label="Input BAM" help="" /&gt;
-&lt;param format="vcf"   type="data" name="known_sites"    label="Known SNP sites VCF" /&gt;
-&lt;param format="fasta" type="data" name="reference"      label="Reference Genome" /&gt;
-&lt;/inputs&gt;
+<inputs>
+<param format="bam"   type="data" name="input_bam"      label="Input BAM" help="" />
+<param format="vcf"   type="data" name="known_sites"    label="Known SNP sites VCF" />
+<param format="fasta" type="data" name="reference"      label="Reference Genome" />
+</inputs>
 ```
 
-Then define the necessary outputs. Note the optional "from_work_dir" parameter, which defines the output filename. This allows the tool author to hard code an output file name, like 'output.vcf' in their command line. The alternate method is to use the 'name' of the output data parameter in the script, ie
+Then define the necessary outputs. Note the optional `from_work_dir` parameter, which defines the output filename. This allows the tool author to hard code an output file name, like 'output.vcf' in their command line. The alternate method is to use the 'name' of the output data parameter in the script, ie
 ```
 -o ${output_report}
 ```
 rather than
-```-o recal_data.table```
+```
+-o recal_data.table
+```
 
+The with this feature, the output stanza becomes:
 ```
-&lt;outputs&gt;
-&lt;data format="txt" name="output_report" label="BQSR Report" from_work_dir="recal_data.table"/&gt;
-&lt;data format="bam" name="output_bam" label="BQSR BAM" from_work_dir="output.bam"/&gt;
-&lt;/outputs&gt;
+<outputs>
+<data format="txt" name="output_report" label="BQSR Report" from_work_dir="recal_data.table"/>
+<data format="bam" name="output_bam" label="BQSR BAM" from_work_dir="output.bam"/>
+</outputs>
 ```
+
 Then the actual shell script which runs the command (this leverages the "configfile" directive though technically not a configuration file):
 
 ```
-&lt;configfiles&gt;
-&lt;configfile name="runscript"&gt;#!/bin/bash
+<configfiles>
+<configfile name="runscript">#!/bin/bash
 ln -s ${input_bam} input.bam
 ln -s ${input_bam.metadata.bam_index} input.bam.bai
 ln -s ${reference} reference.fasta
@@ -120,24 +124,24 @@ java -jar /opt/GenomeAnalysisTK.jar \
 -I input.bam \
 -BQSR recal_data.table \
 -o output.bam
-&lt;/configfile&gt;
-&lt;/configfiles&gt;
+</configfile>
+</configfiles>
 ```
 Finally describe the error handling:
 ```
-&lt;stdio&gt;
-&lt;exit_code range="1:" level="fatal" /&gt;
-&lt;regex match="ERROR"
+<stdio>
+<exit_code range="1:" level="fatal" />
+<regex match="ERROR"
 source="both"
 level="fatal"
-description="Error running BQSR" /&gt;
-&lt;/stdio&gt;
+description="Error running BQSR" />
+</stdio>
 ```
 You can include help text as a form of documentation about how to use the program
 ```
-&lt;help&gt;
+<help>
 You can put notes on how to run your program here.
-&lt;/help&gt;
+</help>
 ```
 
 Wrapper with a Runner Script
