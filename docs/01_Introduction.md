@@ -116,6 +116,16 @@ To deploy via the web interface
 8) If you click the IP address for the instance you should be directed the the home page of you newly
 create Galaxy SDK instance
 
+To SSH into the machine use (where instance-1 is the name of the instance you provided earlier)
+```
+gcloud compute ssh ubuntu@instance-1
+```
+
+You may have to run
+```
+gcloud config set project YOUR-PROJECT-NAME
+```
+
 
 To deploy via command line interface
 ------------------------------------
