@@ -42,6 +42,7 @@ If you haven't already done it, run the Google Cloud SDK login
 gcloud auth login
 ```
 
+
 Load the image into your account, replace YOUR-PROJECT-NAME with the Google cloud project
 that you want to run the VM inside of
 ```
@@ -49,8 +50,19 @@ gcutil --project="YOUR-PROJECT-NAME" addimage planemo-machine-image http://stora
 ```
 
 To deply via command line interface
+------------------------------------
+Before deploying via command line, you may want to set the current project id
 ```
-user@ubuntu:~$ gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
+gcloud config set project YOUR-PROJECT-ID
+```
+
+Now you should be able to create a new instance
+```
+gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
+```
+
+This will produce the output
+```
 Created [https://www.googleapis.com/compute/v1/projects/level-elevator-666/zones/us-central1-f/instances/planemo].
 NAME    ZONE          MACHINE_TYPE  INTERNAL_IP    EXTERNAL_IP    STATUS
 planemo us-central1-f n1-standard-2 10.240.143.115 162.222.182.19 RUNNING
@@ -79,23 +91,15 @@ To deploy via the web interface
 8) If you click the IP address for the instance you should be directed the the home page of you newly
 create Galaxy SDK instance
 
+
+After the planemo machine is activated
+
+
 To SSH into the machine use (where instance-1 is the name of the instance you provided earlier)
 ```
 gcloud compute ssh ubuntu@instance-1
 ```
 
-You may have to run
-```
-gcloud config set project YOUR-PROJECT-NAME
-```
-
-
-To deploy via command line interface
-------------------------------------
-From there start up a server
-```
-gcutil launch image <- please fix this
-```
 
 Vagrant Based Development
 ========================
@@ -143,43 +147,4 @@ vagrant ssh
 You can get change to the tool directory with
 ```
 cd /opt/galaxy/tools
-```
-
-
-Docker based Development
-========================
-
-Please note: Docker based deployment requires the user to install and run docker
-well as setup 'Docker-By-Docker' deployment, so it is considered an option only for
-'advanced users'
-
-Download the most update SDK docker image
-```
-docker pull planemo/box
-```
-
-Deploy SDK
-```
-docker run -v `pwd`:/opt/galaxy/tools -v /var/run/docker.sock:/var/run/docker.sock -p 8010:80 -e GALAXY_DOCKER_ENABLED=true -e GALAXY_DOCKER_SUDO=true -e GALAXY_DOCKER_VOLUMES_FROM=planemo --name planemo planemo/box
-```
-
-Note: If you get the error message
-```
-FATA[0000] Error response from daemon: Conflict, The name planemo is already assigned to 0109fd956412. You have to delete (or rename) that container to be able to assign planemo to a container again.
-
-```
-
-You can either restart the server with
-```
-docker start -a planemo
-```
-
-Or delete the server before starting again
-```
-docker rm -v planemo
-```
-
-Obtain a command line inside the
-```
-docker exec -i -t planemo /bin/bash
 ```
