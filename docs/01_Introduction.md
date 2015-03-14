@@ -35,42 +35,49 @@ The main steps in this procedure are:
 3) mount and format the disk
 4) copy data to the disk
 
+First go to https://console.developers.google.com to view your projects, and obtain
+your project id.
+
+And remember when you are done using your VM, turn it off. You are changed for every
+hour it is on, and if you forget about it, it will rack up costs quickly.
+
+
 To start up the Planemo Machine under GCE:
+------------------------------------------
 
 If you haven't already done it, run the Google Cloud SDK login
 ```
 gcloud auth login
 ```
 
-
-Load the image into your account, replace YOUR-PROJECT-NAME with the Google cloud project
+Load the image into your account, replace YOUR-PROJECT-ID with the Google cloud project
 that you want to run the VM inside of
 ```
-gcutil --project="YOUR-PROJECT-NAME" addimage planemo-machine-image http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
+gcutil --project="YOUR-PROJECT-ID" addimage planemo-machine-image http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
 ```
 
 To deply via command line interface
-------------------------------------
-Before deploying via command line, you may want to set the current project id
 ```
-gcloud config set project YOUR-PROJECT-ID
-```
-
-Now you should be able to create a new instance
-```
-gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
-```
-
-This will produce the output
-```
+user@ubuntu:~$ gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
 Created [https://www.googleapis.com/compute/v1/projects/level-elevator-666/zones/us-central1-f/instances/planemo].
 NAME    ZONE          MACHINE_TYPE  INTERNAL_IP    EXTERNAL_IP    STATUS
 planemo us-central1-f n1-standard-2 10.240.143.115 162.222.182.19 RUNNING
 
 ```
 
-Now if you navigate to the listed EXTERNAL_IP, you will find the running Planemo-Machine
 
+Now if you navigate to the listed EXTERNAL_IP, you will find the running Planemo-Machine
+If you go to the web page and you see an error that 'an internal server error' has occured, and the
+message doesn't go away, you can restart the server by sshing into the server and issuing the command
+```
+sudo supervisorctl restart galaxy:
+```
+
+To SSH into the machine use (where planemo is the name of the instance you provided earlier and
+the instance was started in us-central1-f)
+```
+gcloud compute ssh --zone us-central1-f ubuntu@planemo
+```
 
 To deploy via the web interface
 -------------------------------
@@ -80,7 +87,7 @@ To deploy via the web interface
 4) If a dialog pops up asking what you want to do, select 'Create Instance', otherwise click the
 'New Instance' button
 5) Fill out the instance creation dialog, this will include
-5.1) Set the name
+5.1) Set the name (in these examples, we name the machines 'planemo')
 5.2) Allow HTTP and HTTPS traffic
 5.3) Select the Zone you want to deploy in
 5.4) Select the machine type of choice, a system with at least 6GB of RAM is expected
@@ -92,12 +99,17 @@ To deploy via the web interface
 create Galaxy SDK instance
 
 
-After the planemo machine is activated
+To Attach Additional Storage to you GCE VM
+------------------------------------------
 
-
-To SSH into the machine use (where instance-1 is the name of the instance you provided earlier)
+You can create a volume to attach to your machine with the command
 ```
-gcloud compute ssh ubuntu@instance-1
+gcloud compute disks create --size 30GB --zone us-central1-f planemo-data
+```
+
+Then attach the disk to your instance
+```
+gcloud compute instances attach-disk --zone us-central1-f --disk planemo-data planemo
 ```
 
 
