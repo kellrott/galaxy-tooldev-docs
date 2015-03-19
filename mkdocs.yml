@@ -1,6 +1,6 @@
 site_name: Galaxy Tool Dev
 pages:
-- [index.md, Home]
+- [index.md, Creating Galaxy tools and workflows]
 - [01_GCE.md, Introduction, Google Cloud Engine]
 - [01_Vagrant.md, Introduction, Vagrant]
 - [02_Examples.md, Introduction, Working With Examples]
