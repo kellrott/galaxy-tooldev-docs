@@ -1,0 +1,3 @@
+[submodule "planemo"]
+	path = planemo
+	url = https://github.com/galaxyproject/planemo.git

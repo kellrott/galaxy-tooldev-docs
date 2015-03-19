@@ -38,8 +38,8 @@ The main steps in this procedure are:
 First go to https://console.developers.google.com to view your projects, and obtain
 your project id.
 
-And remember when you are done using your VM, turn it off. You are changed for every
-hour it is on, and if you forget about it, it will rack up costs quickly.
+> Every GCE project has a name and an ID. You can assign the name yourself,
+> but the ID will be assigned automatically by GCE.
 
 
 To start up the Planemo Machine under GCE:
@@ -81,21 +81,21 @@ gcloud compute ssh --zone us-central1-f ubuntu@planemo
 
 To deploy via the web interface
 -------------------------------
-1) Go to your console at https://console.developers.google.com
-2) Select the project you want to deploy under
-3) Under the left hand menu, select Compute -> Compute Engine -> VM Instances
-4) If a dialog pops up asking what you want to do, select 'Create Instance', otherwise click the
+1. Go to your console at https://console.developers.google.com
+2. Select the project you want to deploy under
+3. Under the left hand menu, select Compute -> Compute Engine -> VM Instances
+4. If a dialog pops up asking what you want to do, select 'Create Instance', otherwise click the
 'New Instance' button
-5) Fill out the instance creation dialog, this will include
-5.1) Set the name (in these examples, we name the machines 'planemo')
-5.2) Allow HTTP and HTTPS traffic
-5.3) Select the Zone you want to deploy in
-5.4) Select the machine type of choice, a system with at least 6GB of RAM is expected
-5.5) For the Boot Disk, Select 'New Disk From Image'
-5.6) For the image, Select 'planemo-machine-image'
-6) Hit Create
-7) To see your instance list, navigate back to Compute -> Compute Engine -> VM Instances
-8) If you click the IP address for the instance you should be directed the the home page of you newly
+5. Fill out the instance creation dialog, this will include:
+    1. Set the name (in these examples, we name the machines 'planemo')
+    2. Allow HTTP and HTTPS traffic
+    3. Select the Zone you want to deploy in
+    4. Select the machine type of choice, a system with at least 6GB of RAM is expected
+    5. For the Boot Disk, Select 'New Disk From Image'
+    6. For the image, Select 'planemo-machine-image'
+6. Hit Create
+7. To see your instance list, navigate back to Compute -> Compute Engine -> VM Instances
+8. If you click the IP address for the instance you should be directed the the home page of you newly
 create Galaxy SDK instance
 
 
@@ -111,6 +111,10 @@ Then attach the disk to your instance
 ```
 gcloud compute instances attach-disk --zone us-central1-f --disk planemo-data planemo
 ```
+
+
+> And remember when you are done using your VM, turn it off. You are changed for every
+> hour it is on, and if you forget about it, it will rack up costs quickly.
 
 
 Vagrant Based Development

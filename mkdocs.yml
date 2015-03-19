@@ -1,9 +1,16 @@
 site_name: Galaxy Tool Dev
 pages:
 - [index.md, Home]
-- [01_Introduction.md, Introduction]
-- [02_Examples.md, Working With Examples]
-- [03_Docker.md, Docker]
-- [04_ToolWrapper.md, Tool Wrapper Syntax]
-- [05_ToolDev.md, Tool Development]
-- [06_Glossary.md, Glossary]
+- [01_Introduction.md, Introduction, Lauching SDK]
+- [02_Examples.md, Introduction, Working With Examples]
+- [03_Docker.md, Development, Docker]
+- [04_ToolWrapper.md, Development, Tool Wrapper Syntax]
+- [05_ToolDev.md, Development, Tool Development]
+- [06_FAQ.md, Help, FAQ]
+- [06_Glossary.md, Help, Glossary]
+imports:
+- [ planemo/docs/commands/docker_build.rst, PLANEMO_DOCKER ]
+- [ planemo/docs/_writing_parameters.rst, WRITING_PARAMS]
+templates:
+- 03_Docker.md
+- 05_ToolDev.md
