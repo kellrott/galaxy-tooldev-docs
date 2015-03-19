@@ -2,12 +2,6 @@
 Tool Development
 ================
 
-Simple Parameters
-=================
-
-We have built a tool wrapper for the `seqtk seq` command - but this tool
-actually has additional options that we may wish to expose the Galaxy
-user.
 
 Lets take a few of the parameters from the help command and build Galaxy
 `param` blocks to stick in the tool's `inputs` block.

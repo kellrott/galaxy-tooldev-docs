@@ -9,15 +9,18 @@ handle = open("mkdocs.yml")
 meta = yaml.load(handle.read())
 
 text = {}
-for src, dst in meta['imports']:
-    cmd = "pandoc --from=rst --to=markdown %s " % (src)
+for req in meta['imports']:
+    cmd = "pandoc --from=rst --to=markdown %s " % (req['file'])
     print "Exec", cmd
     process = subprocess.Popen(cmd, shell=True,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE)
-
     out, err = process.communicate()
-    text[dst] = out
+
+    if 'head_trim' in req:
+        out = "\n".join(out.split("\n")[req['head_trim']:])
+
+    text[req['name']] = out
 
 for name in meta['templates']:
     with open(os.path.join('templates', name)) as handle:

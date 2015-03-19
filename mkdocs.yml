@@ -1,7 +1,8 @@
 site_name: Galaxy Tool Dev
 pages:
 - [index.md, Home]
-- [01_Introduction.md, Introduction, Lauching SDK]
+- [01_GCE.md, Introduction, Google Cloud Engine]
+- [01_Vagrant.md, Introduction, Vagrant]
 - [02_Examples.md, Introduction, Working With Examples]
 - [03_Docker.md, Development, Docker]
 - [04_ToolWrapper.md, Development, Tool Wrapper Syntax]
@@ -9,8 +10,14 @@ pages:
 - [06_FAQ.md, Help, FAQ]
 - [06_Glossary.md, Help, Glossary]
 imports:
-- [ planemo/docs/commands/docker_build.rst, PLANEMO_DOCKER ]
-- [ planemo/docs/_writing_parameters.rst, WRITING_PARAMS]
+-
+    file: planemo/docs/commands/docker_build.rst
+    name: PLANEMO_DOCKER
+    head_trim: 6
+-
+    file: planemo/docs/_writing_parameters.rst
+    name: WRITING_PARAMS
+    head_trim: 6
 templates:
 - 03_Docker.md
 - 05_ToolDev.md
