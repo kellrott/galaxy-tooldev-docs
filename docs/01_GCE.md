@@ -8,7 +8,6 @@ For GCE Based SDK first Install [Google Cloud SDK](https://developers.google.com
 This section will help you set up a compute instance and a persistent disk containing challenge data. For most steps, you can choose to use either the Developers Console web interface or the Google Cloud SDK command line tools ("gcutil" and "gsutil"). [This page](https://developers.google.com/compute/docs/console) is a good short intro/summary of how to use the console:
 
 The main steps in this procedure are:
-
 1. create a persistent disk big enough to hold the data
 2. create an instance and attach the disk
 3. mount and format the disk
@@ -17,9 +16,11 @@ The main steps in this procedure are:
 First go to https://console.developers.google.com to view your projects, and obtain
 your project id.
 
-> Every GCE project has a name and an ID. You can assign the name yourself,
-> but the ID will be assigned automatically by GCE.
-
+>For GCE, a Project is a area to organize members, cloud resource
+>instances and billing.
+>Every GCE project has a name and an ID. You can assign the name
+>yourself, but the ID will be assigned automatically by GCE. You
+>can find your project name at the [GCE Console](https://console.developers.google.com/project)
 
 To start up the Planemo Machine under GCE:
 ------------------------------------------
@@ -32,25 +33,36 @@ gcloud auth login
 Load the image into your account, replace YOUR-PROJECT-ID with the Google cloud project
 that you want to run the VM inside of
 ```
-gcutil --project="YOUR-PROJECT-ID" addimage planemo-machine-image http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
+gcloud compute images create planemo-machine-image --source-uri http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
+```
+
+This will return a read out like
+```
+Created [https://www.googleapis.com/compute/v1/projects/level-elevator-666/global/images/planemo-machine-image].
+NAME                  PROJECT            ALIAS DEPRECATED STATUS
+planemo-machine-image level-elevator-666                  READY
 ```
 
 To deply via command line interface
 ```
-user@ubuntu:~$ gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
+gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
+```
+
+This will return a read out like
+```
 Created [https://www.googleapis.com/compute/v1/projects/level-elevator-666/zones/us-central1-f/instances/planemo].
 NAME    ZONE          MACHINE_TYPE  INTERNAL_IP    EXTERNAL_IP    STATUS
 planemo us-central1-f n1-standard-2 10.240.143.115 162.222.182.19 RUNNING
 
 ```
 
-
 Now if you navigate to the listed EXTERNAL_IP, you will find the running Planemo-Machine
-If you go to the web page and you see an error that 'an internal server error' has occured, and the
-message doesn't go away, you can restart the server by sshing into the server and issuing the command
-```
-sudo supervisorctl restart galaxy:
-```
+
+>If you go to the web page and you see an error that
+>'an internal server error' has occured, and the
+>message doesn't go away, you can restart the server
+>by sshing into the server and issuing the command
+>`sudo supervisorctl restart galaxy:`
 
 To SSH into the machine use (where planemo is the name of the instance you provided earlier and
 the instance was started in us-central1-f)
@@ -77,7 +89,6 @@ To deploy via the web interface
 8. If you click the IP address for the instance you should be directed the the home page of you newly
 create Galaxy SDK instance
 
-
 To Attach Additional Storage to you GCE VM
 ------------------------------------------
 
@@ -91,6 +102,6 @@ Then attach the disk to your instance
 gcloud compute instances attach-disk --zone us-central1-f --disk planemo-data planemo
 ```
 
-
-> And remember when you are done using your VM, turn it off. You are changed for every
-> hour it is on, and if you forget about it, it will rack up costs quickly.
+>And remember when you are done using your VM, turn it off.
+>You are changed for every hour it is on, and if you forget
+>about it, it will rack up costs quickly.
