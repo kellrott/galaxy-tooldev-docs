@@ -3,45 +3,27 @@
 Working on Examples
 ===================
 
-1) Obtain the example tool set
+These examples are based on being able to access a terminal on the
+planemo machine and work in the /opt/galaxy/tools directory. If you don't know
+how to do this, fix the instructions on how to SSH into your system. You will
+want to execute these commands as the `ubuntu` user.
+
+Download example code
+---------------------
+
+1. Obtain the example tool set
 ```
 git clone https://github.com/ucscCancer/smc_het_example
 cd smc_het_example
 ```
 
-2) Launch the development server
+2. Navigate to the web server to view the Galaxy UI. On GCE based machines it will
+be `http://IP_ADDRESS/` (where IP_ADDRESS is given as the `external address` for the VM in the system console), while on VirtualBox system it will likely be `http://localhost:8010`
 
-3) The example program "DPC", should appear in the window
+3. The general Galaxy layout is to have a tool panel on the left had side of the screen, with a data history panel on the right hand side. The Planemo Machine has been set up to automatically scan the `/opt/galaxy/tools` directory for valid tools. Because of this, the "DPC" program from the smc_het_example package should appear in the left hand side of the window.
 
-Once logged into the SDK
-------------------------
+> If the DPC example does not display in the tool selection panel on the left hand side of the window, try running `sudo supervisorctl restart galaxy:` to restart the Galaxy server
 
-1) In '/opt/galaxy/tools' run
-```
-planemo tool_init
-```
-
-2) Reload the Galaxy panel. You tool should now appear in the list of tools
-
-3) Build Dockerfile to describe how your container is built
-
-4) Run docker build to construct a working container
-```
-planemo docker_build
-```
-
-5) Edit wrapper. Check the file syntax with
-```
-planemo lint my_cool_tool.xml
-```
-
-6) Test your tool
-
-Note: If you think that Galaxy is failing dynamically to reload your tool. Use
-the command
-```
-supervisorctl restart galaxy:
-```
 
 Wrapper
 =======
