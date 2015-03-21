@@ -7,8 +7,9 @@ pages:
 - [03_Docker.md, Development, Docker]
 - [04_ToolWrapper.md, Development, Tool Wrapper Syntax]
 - [05_ToolDev.md, Development, Tool Development]
-- [06_FAQ.md, Help, FAQ]
-- [06_Glossary.md, Help, Glossary]
+- [06_Submitting.md, Submitting, Submitting Code]
+- [07_FAQ.md, Help, FAQ]
+- [07_Glossary.md, Help, Glossary]
 imports:
 -
     file: planemo/docs/commands/docker_build.rst
