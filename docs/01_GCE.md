@@ -54,9 +54,20 @@ NAME                  PROJECT            ALIAS DEPRECATED STATUS
 planemo-machine-image level-elevator-666                  READY
 ```
 
+At this point you may need to add a firewall rule set to allow traffic to the HTTP port (80). Instructions about this can be found in the GCE [quick start](https://cloud.google.com/compute/docs/quickstart#addfirewall) manual.
+
+The command to add a HTTP ruleset is (note that we are assigning the tagset name 'http-server', this will be reference later when we create an VM instance that uses these firewall rules):
+```
+gcloud compute firewall-rules create allow-http \
+    --target-tag http-server \
+    --description "Incoming http allowed." --allow tcp:80
+```
+
 To deply via command line interface
 ```
-gcloud compute instances create planemo --machine-type n1-standard-2 --image planemo-machine-image --zone us-central1-f --tags http-server
+gcloud compute instances create planemo \
+    --machine-type n1-standard-2 --image planemo-machine-image \
+    --zone us-central1-f --tags http-server
 ```
 
 This will return a read out like
