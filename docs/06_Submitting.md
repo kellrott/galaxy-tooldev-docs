@@ -6,11 +6,6 @@ A submission to the challenge is a Workflow. The workflow will connect to severa
 
 The first step is to create a workflow that takes the challenge input files, runs the analysis and produces the outputs. There are a few additional things that need to be added to the workflow so that it can be run in the framework.
 
-The code for submitting code to the challenge can be found at https://github.com/Sage-Bionetworks/SMC-Het-Challenge to install:
-```
-git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge.git
-```
-
 Extracting a Workflow
 -------------------
 You will need to edit the workflow in the Galaxy Editor but if you have already done all the operations by hand, you can select the 'History Options' drop down menu on the right hand of the Analysis panel above the history, which looks like a gear. There will be a selection called 'Extract Workflow', which will give you the option of creating a workflow based on your previous actions in the history.
@@ -37,3 +32,31 @@ Test the workflow
 
 Submit the workflow
 -------------------
+
+The code for submitting code to the challenge can be found at https://github.com/Sage-Bionetworks/SMC-Het-Challenge to install:
+```
+git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge.git
+```
+
+This code includes the script `dream_galaxy_submit` which will scan a workflow URL stored on a Galaxy instance, download the relevant tools and data, and then upload them to a Synapse directory.
+
+The first step is to get the download URL of the workflow. To find it:
+
+1. Go to the `Workflow` panel
+2. Click the name of the workflow to be submitted
+3. When the dropdown menu appears select 'Share of Publish'
+4. If it exists, click the button `Make Workflow Accessible via Link`
+5. Below the text `Anyone can view and import this workflow by visiting the following URL` there will be the text of a URL. This is the URL you will provide to the submission program
+
+
+Next you will need your Galaxy API key:
+1. On the Top 'User' menu, select 'API Keys'
+2. Copy the value in the 'Current API key' field
+3. If the value is 'none set', then click `Generate a new key now` and copy the produced value
+
+You can now run the `dream_galaxy_submit` program
+```
+./dream_galaxy_submit \
+--workflow http://128.114.61.142:9999/u/dev/w/smc-het-file \
+--apikey ec713e37df8cdf5e9ffdd97c5c56bab1 --project-id syn2751753
+```
