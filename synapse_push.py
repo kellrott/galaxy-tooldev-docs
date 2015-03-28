@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     #Load/Update other pages
     for page_num, page in enumerate(doc_config['pages'][1:]):
-        page_title = "%s.%s.%s - %s" % (SECTION_BASE, section_numbers[page[1]], page_num, page[2])
+        page_title = "%s.%s - %s" % (SECTION_BASE, page_num, page[2])
         src[page_title] = {
             'doc' : load_doc(page[0]),
             'wiki_id' : child_pages.get(page_title, None)
