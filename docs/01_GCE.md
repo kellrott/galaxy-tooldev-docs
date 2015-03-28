@@ -88,6 +88,8 @@ the instance was started in us-central1-f)
 gcloud compute ssh --zone us-central1-f ubuntu@planemo
 ```
 
+>Remember when you are done using your VM, turn it off. You are changed for every hour it is on, and if you forget about it, it will rack up costs quickly.
+
 To deploy via the web interface
 -------------------------------
 1. Go to your console at https://console.developers.google.com
@@ -118,5 +120,20 @@ Then attach the disk to your instance
 ```
 gcloud compute instances attach-disk --zone us-central1-f --disk planemo-data planemo
 ```
+After the disk is attached to the instance, it will be available to be mounted.
 
->And remember when you are done using your VM, turn it off. You are changed for every hour it is on, and if you forget about it, it will rack up costs quickly.
+Updating Planemo Image
+----------------------
+
+If there is a need to update the SDK image, usually because bug fixes or new features, you will need to create a new VM based on a fresh image download.
+
+> Please Note: if you upgrade your VM, please make sure that your work is stored at an external location. If you've followed the instructions to attach additional storage to your machine, make sure that your work is storage on the external volume. If you create a new VM without transferring your work, you may lose it.
+
+When updating the image, you may want to get delete the older version. There is no need to keep an image if there is an instance running based on that image. Deleting the image isn't required if you are willing to pay for the extra storage space, and can manage the names of multiple images. In the previous instructions, we referred to the disk image as `planemo-machine-image`, but you could easily create a second image named `planemo-machine-image-v2`.
+
+To delete the image
+```
+gcloud compute images delete planemo-machine-image
+```
+
+Then follow the instructions starting a new image. If you are keeping an older instance of the VM running, you will need to find a name. So you can replace `planemo` with `planemo-v2` in the instructions.
