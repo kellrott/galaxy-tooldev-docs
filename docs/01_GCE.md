@@ -112,7 +112,38 @@ create Galaxy SDK instance
 
 Updating Planemo Image
 ----------------------
-
 If there is a need to update the SDK image, usually because bug fixes or new features, you will need to create a new VM based on a fresh image download.
 
-Then follow the instructions starting a new image. If you are keeping an older instance of the VM running, you will need to find a name. So you can replace `planemo` with `planemo-v2` in the instructions.
+When updating the image, you may want to get delete the older version. There is no need to keep an image if there is an instance running based on that image. Deleting the image isn't required if you are willing to pay for the extra storage space, and can manage the names of multiple images. In the previous instructions, we referred to the disk image as `planemo-machine-image`, but you could easily create a second image named `planemo-machine-image-v2`.
+
+>Deleting an image is different then deleting an instance. The image is simply the start source, and once an instance as been started it is no longer dependent on the image. You work is stored in the instance. Do not delete that until you've copied it somewhere else.
+
+To delete the old image
+```
+gcloud compute images delete planemo-machine-image
+```
+
+To get the updated image, follow the instructions starting a new image. The URL mentioned in the command line points to the current image. If you are keeping an older instance of the VM running, you will need to find a name. So you can replace `planemo` with `planemo-v2` in the instructions.
+
+Transferring data between instances
+-----------------------------------
+To transfer data from the old instance to the new one, have both instances running at the same time. First list running instances
+```
+gcloud compute instances list
+```
+Which should return a list:
+```
+NAME       ZONE          MACHINE_TYPE  INTERNAL_IP   EXTERNAL_IP     STATUS
+planemo-v2 us-central1-f n1-standard-2 10.240.229.40 162.222.179.9   RUNNING
+planemo    us-central1-f n1-standard-2 10.240.49.28  130.211.131.162 RUNNING
+```
+
+Copy the files from the original machine to your local machine:
+```
+gcloud compute copy-files --zone us-central1-f  ubuntu@planemo:/opt/galaxy/tools ./
+```
+
+Copy the files from your local machine to the new VM:
+```
+gcloud compute copy-files --zone us-central1-f  tools ubuntu@planemo-v2:/opt/galaxy/
+```
