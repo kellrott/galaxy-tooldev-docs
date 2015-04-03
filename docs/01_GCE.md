@@ -115,7 +115,4 @@ Updating Planemo Image
 
 If there is a need to update the SDK image, usually because bug fixes or new features, you will need to create a new VM based on a fresh image download.
 
-> Please Note: if you upgrade your VM, please make sure that your work is stored at an external location. If you've followed the instructions to attach additional storage to your machine, make sure that your work is storage on the external volume. If you create a new VM without transferring your work, you may lose it.
-
-
 Then follow the instructions starting a new image. If you are keeping an older instance of the VM running, you will need to find a name. So you can replace `planemo` with `planemo-v2` in the instructions.

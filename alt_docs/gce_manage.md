@@ -21,3 +21,7 @@ To delete the image
 ```
 gcloud compute images delete planemo-machine-image
 ```
+
+
+
+> Please Note: if you upgrade your VM, please make sure that your work is stored at an external location. If you've followed the instructions to attach additional storage to your machine, make sure that your work is storage on the external volume. If you create a new VM without transferring your work, you may lose it.
