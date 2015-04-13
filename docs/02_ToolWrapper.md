@@ -4,17 +4,29 @@ Tool Wrapper Scripts and Parameter Files
 ========================================
 
 
-In addition to a Docker file, the host system needs some form of wrapper script and parameter file to call/run the collaborator's tool.  These should contain all the command line parameters and parallelization directives necessary to run the tool in a production environment.  Typically these are XML files with Bash scripts embedded, but can also include Python "runner" scripts.
+In addition to a runtime environment, which has been defined by Docker, a tool needs some form of wrapper script and parameter file so that other people will know how to interface with it.  These configuration files should contain all the command line parameters and parallelization directives necessary to run the tool in a production environment. The wrapper is an XML file defined by the Galaxy Tool Syntax, and it will usually be accompanied by runner scripts that do small amount of run time preperation, like creating configuration files or running data preparation commands.
 
-Examples of wrapper scripts and parameter files for Broad's MuTect::
+The example for the DPC code would be the::
 
 Wrapper XML File:
-https://github.com/ucscCancer/pcawg_tools/blob/master/tools/mutect/muTect.xml
-Wrapper Runner Script:
-https://github.com/ucscCancer/pcawg_tools/blob/master/tools/mutect/muTect.py
+https://github.com/Sage-Bionetworks/SMC-Het-Challenge
+
+
+Each tool wrapper configuration includes
+1. The tool name, id and version number
+2. Environmental requirements, ie the name of the Docker container
+3. Inputs file and parameters
+4. Output files
+5. A templated command line to be execute in the container for the given inputs and outputs
+
+Optional Sections of the Tool Configuration include
+1. Configuration file creation
+2. Unit tests
+3. Documentation and help
 
 
 Writing Command line templates
+------------------------------
 For the command line, the templating language is Cheetah. The return characters are removed and blank file paths set to empty strings. There should be one command line to run the entire analysis. Variable inputs should be demarcated in the style:
 ```
 ${variable_name}
@@ -29,6 +41,7 @@ http://www.onlamp.com/pub/a/python/2005/01/13/cheetah.html
 A wrapper can provide a simple set of command lines to be executed. Or it can provide a more complex wrapper for which there is both a defined command line as well as a runner script which does additional task such file and config setup as well as simple SMP parallelization (as allowed by the GALAXY_SLOTS environment variable).  In the case of the MuTect wrapper, the runner script 'chunks' the genome into intervals to be run under MuTect independently and concatenates the result VCF files at the end of the run.
 
 Simple Wrapper
+--------------
 Create a shell script with your variables in it and execute that shell script. The pattern to note is how the 'configfiles' stanza is used to create a shell script, which is executed with no arguments using the 'command' stanza.
 
 The GATK's BQSR program exemplifies this type of wrapper:
@@ -69,13 +82,13 @@ Provide a 'Dockerfile' in the same directory as the tool wrapper.  This file wil
 Next is the directive to run the wrapper shell script:
 ```
 <command interpreter="bash">$runscript</command>
-
+```
 Next, define the necessary inputs:
-
+```
 <inputs>
-<param format="bam"   type="data" name="input_bam"      label="Input BAM" help="" />
-<param format="vcf"   type="data" name="known_sites"    label="Known SNP sites VCF" />
-<param format="fasta" type="data" name="reference"      label="Reference Genome" />
+    <param format="bam"   type="data" name="input_bam"      label="Input BAM" help="" />
+    <param format="vcf"   type="data" name="known_sites"    label="Known SNP sites VCF" />
+    <param format="fasta" type="data" name="reference"      label="Reference Genome" />
 </inputs>
 ```
 
@@ -91,8 +104,8 @@ rather than
 The with this feature, the output stanza becomes:
 ```
 <outputs>
-<data format="txt" name="output_report" label="BQSR Report" from_work_dir="recal_data.table"/>
-<data format="bam" name="output_bam" label="BQSR BAM" from_work_dir="output.bam"/>
+    <data format="txt" name="output_report" label="BQSR Report" from_work_dir="recal_data.table"/>
+    <data format="bam" name="output_bam" label="BQSR BAM" from_work_dir="output.bam"/>
 </outputs>
 ```
 
@@ -100,7 +113,7 @@ Then the actual shell script which runs the command (this leverages the "configf
 
 ```
 <configfiles>
-<configfile name="runscript">#!/bin/bash
+    <configfile name="runscript">#!/bin/bash
 ln -s ${input_bam} input.bam
 ln -s ${input_bam.metadata.bam_index} input.bam.bai
 ln -s ${reference} reference.fasta
@@ -175,6 +188,7 @@ And then pass in input.bam as an input to the program.
 
 
 Work environment
+----------------
 The command line will be executed in a temporary working directory where you can write temporary files and it will be cleaned out at the end of run. The input and output paths will be set to locations in different directories.
 
 An important thing to note about Galaxy's parallelization control is the setting/checking of the GALAXY_SLOTS environmental variable in the script above at the line:
@@ -188,6 +202,7 @@ $GALAXY_SLOTS
 is actually an environmental variable defined at runtime, and not a variable that is filled in by the templating engine.
 
 Catching Errors
+---------------
 See https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax#A.3Cstdio.3E.2C_.3Cregex.3E.2C_and_.3Cexit_code.3E_tag_sets for details on how to configure the error state checking. The standard method is to look for error exit code. Note, if you are using a BASH script, use the 'set -e' so that any command error will result in the script failing. You can set up a regex to search stderr for failure messages, but this method should not be used by itself, as it may not catch all errors.
 
 Testing and debugging

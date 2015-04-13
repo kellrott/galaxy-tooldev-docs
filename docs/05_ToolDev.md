@@ -44,7 +44,7 @@ files, but there are many different kinds of parameters one can use.
 Flag parameters such as the above `-V` parameter are frequently
 represented by `boolean` parameters in Galaxy tool XML.
 
-    <param name="shift_quality" type="boolean" label="Shift quality" 
+    <param name="shift_quality" type="boolean" label="Shift quality"
            truevalue="-V" falsevalue=""
            help="shift quality by '(-Q) - 33' (-V)" />
 
@@ -61,9 +61,9 @@ Now consider the following `seqtk seq` parameters:
 
 These can be translated into Galaxy parameters as:
 
-    <param name="quality_min" type="integer" label="Mask bases with quality lower than" 
+    <param name="quality_min" type="integer" label="Mask bases with quality lower than"
            value="0" min="0" max="255" help="(-q)" />
-    <param name="quality_max" type="integer" label="Mask bases with quality higher than" 
+    <param name="quality_max" type="integer" label="Mask bases with quality higher than"
            value="255" min="0" max="255" help="(-X)" />
 
 These can be add to the command tag as
@@ -82,7 +82,7 @@ consider.
 We can mark this `data` type `param` as optional by adding the attribute
 `optional="true"`.
 
-    <param name="mask_regions" type="data" label="Mask regions in BED" 
+    <param name="mask_regions" type="data" label="Mask regions in BED"
            format="bed" help="(-M)" optional="true" />
 
 Then instead of just using `$mask_regions` directly in the `command`
@@ -131,4 +131,3 @@ defaults are preferred - a common idiom is to break the parameters into
 simple and advanced sections using a `conditional`.
 
 Updating this tool to use that idiom might look as follows.
-

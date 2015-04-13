@@ -1,12 +1,11 @@
 
 
-Google Cloud Engine based Deployment
+Google Compute Engine based Deployment
 ====================================
 
-For GCE Based SDK first Install [Google Cloud SDK](https://developers.google.com/cloud/sdk/) on your local machine.
+For a GCE-based deployment, first Install [Google Compute SDK](https://developers.google.com/cloud/sdk/) on your local machine.
 
-This section will help you set up a compute instance and a persistent disk containing challenge data. For most steps, you can choose to use either the Developers Console web interface or the Google Cloud SDK command line tools ("gcutil" and "gsutil"). If
-you need help getting started with using the Google Cloud, [the user documentation ](https://developers.google.com/compute/docs/console) provides a good intro/summary of how to use the console:
+This section will help you set up a compute instance and a persistent disk containing challenge data. For most steps, you can choose to use either the Developers Console web interface or the Google Compute SDK command line tools. If you need help getting started with using the Google Compute, [the user documentation ](https://developers.google.com/compute/docs/console) provides a good intro/summary of how to use the console.
 
 The main steps in this procedure are:
 1. create a persistent disk big enough to hold the data
@@ -17,11 +16,11 @@ The main steps in this procedure are:
 First go to https://console.developers.google.com to view your projects, and obtain
 your project id. If you do not already have a project use the 'Create Project' button.
 
->For GCE, a Project is a area to organize members, cloud resource instances and billing. Every GCE project has a name and an ID. You can assign the name yourself, but the ID will be assigned automatically by GCE. You can find your project name at the [GCE Console](https://console.developers.google.com/project)
+>For Google Cloud Platform, a Project is an area to organize members, cloud resources such as GCE instances, and billing.  Every GCP project has a name and an ID. You can assign the name yourself, but the ID will be assigned automatically by GCP. You can find your project name at the [Google Developers Console](https://console.developers.google.com/project)
 
 To start up the Planemo Machine under GCE:
 ------------------------------------------
-If you haven't already done it, run the Google Cloud SDK login
+If you haven't already done it, run the Google Compute SDK login
 ```
 gcloud auth login
 ```
@@ -41,8 +40,7 @@ $ gcloud config set project VALUE
 or it can be set temporarily by the environment variable [CLOUDSDK_CORE_PROJECT]
 ```
 
-Load the image into your account, replace YOUR-PROJECT-ID with the Google cloud project
-that you want to run the VM inside of
+Load the image into your account
 ```
 gcloud compute images create planemo-machine-image --source-uri http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
 ```
@@ -147,3 +145,51 @@ Copy the files from your local machine to the new VM:
 ```
 gcloud compute copy-files --zone us-central1-f  tools ubuntu@planemo-v2:/opt/galaxy/
 ```
+
+
+To Attach Additional Storage to you GCE VM
+==========================================
+
+You can create a volume to attach to your machine with the command
+```
+gcloud compute disks create --size 30GB --zone us-central1-f planemo-data
+```
+
+Then attach the disk to your instance
+```
+gcloud compute instances attach-disk --zone us-central1-f --disk planemo-data planemo
+```
+After the disk is attached to the instance, it will be available to be mounted.
+
+Mount and format the disk.
+--------------------------
+
+1-From the Google Compute instance, run the following command to find the disk (look for the one with the name you chose when creating the disk):
+
+```
+$ ls -l /dev/disk/by-id/google-*
+lrwxrwxrwx 1 root root  9 Dec 13 00:34 /dev/disk/by-id/google-dream-challenge-simulated-data1 -> ../../sdb
+lrwxrwxrwx 1 root root  9 Dec 13 00:34 /dev/disk/by-id/google-smc-testing-highmem -> ../../sda
+lrwxrwxrwx 1 root root 10 Dec 13 00:35 /dev/disk/by-id/google-smc-testing-highmem-part1 -> ../../sda1
+```
+
+2-identify and create if necessary the directory to which you want to mount the disk:
+```
+$ sudo mkdir /mnt/simdata1
+```
+
+3-mount and format:
+```
+$ sudo /usr/share/google/safe_format_and_mount -m "mkfs.ext4 -F" /dev/sdb /mnt/simdata1/
+You may need to chmod and/or chown to allow users other than root to write to this directory.
+```
+
+Note: If you created your instance first and now need to attach the disk, you can do this using the Developers Console (select your instance, then use the "Attach" option under the "Disks" section) or using gcutil attachdisk command. Then follow the mount and format instructions above.
+
+
+GCE Support
+===========
+
+For any questions about Google Compute Engine, please post to the forum on [Stack Overflow](http://stackoverflow.com/questions/tagged/google-compute-engine)
+
+For assistance from a Google Support Engineer, please see https://cloud.google.com/support/
