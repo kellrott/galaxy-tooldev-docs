@@ -26,5 +26,5 @@ for name in meta['templates']:
     with open(os.path.join('templates', name)) as handle:
         template = string.Template(handle.read())
 
-    with open(os.path.join('docs', name), "w") as handle:
+    with open(os.path.join('docs', name + ".imported"), "w") as handle:
         handle.write(template.substitute(text))
