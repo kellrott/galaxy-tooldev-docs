@@ -20,12 +20,22 @@ your project id. If you do not already have a project use the 'Create Project' b
 
 To start up the Planemo Machine under GCE:
 ------------------------------------------
-If you haven't already done it, run the Google Compute SDK login
+
+> Parts of this documentation will cover it, but the very first thing you will want to do is make sure you have the `gcloud` command installed and are properly logged in. Follow the instruction found at https://cloud.google.com/compute/docs/gcloud-compute/
+
+
+Before you can can start, make sure you have done the following (again, following the instructions found at https://cloud.google.com/compute/docs/gcloud-compute/)
+1. Authenticated your command line tools
+2. Set the default project
+3. Set the default zone
+
+To authenticate
 ```
 gcloud auth login
 ```
 
-You can set the current project with the command
+You can manage your projects on the [command line](https://cloud.google.com/compute/docs/projects) or via the [web](https://developers.google.com/console/help/new/?&_ga=1.38552803.1582672075.1425679810#managingprojects)
+To You can set the current project with the command
 ```
 gcloud config set project YOUR-PROJECT-ID
 ```
@@ -39,6 +49,16 @@ $ gcloud config set project VALUE
 
 or it can be set temporarily by the environment variable [CLOUDSDK_CORE_PROJECT]
 ```
+
+Set your default zone (replace us-central1-f with your preference)
+```
+gcloud config set compute/zone us-central1-f
+```
+
+Loading the Planemo Image
+-------------------------
+Before you can launch the VM instance you will need install the
+
 
 Load the image into your account
 ```
@@ -65,7 +85,7 @@ To deply via command line interface
 ```
 gcloud compute instances create planemo \
     --machine-type n1-standard-2 --image planemo-machine-image \
-    --zone us-central1-f --tags http-server
+    --tags http-server
 ```
 
 This will return a read out like
@@ -80,13 +100,12 @@ Now if you navigate to the listed EXTERNAL_IP, you will find the running Planemo
 
 >If you go to the web page and you see an error that 'an internal server error' has occured, and the message doesn't go away, you can restart the server by sshing into the server and issuing the command `sudo supervisorctl restart galaxy:`
 
-To SSH into the machine use (where planemo is the name of the instance you provided earlier and
-the instance was started in us-central1-f)
+To SSH into the machine use (where planemo is the name of the instance you provided earlier)
 ```
-gcloud compute ssh --zone us-central1-f ubuntu@planemo
+gcloud compute ssh ubuntu@planemo
 ```
 
->Remember when you are done using your VM, turn it off. You are changed for every hour it is on, and if you forget about it, it will rack up costs quickly.
+>Remember when you are done using your VM, turn it off. You are charged for every hour it is on, and if you forget about it, it will rack up costs quickly.
 
 To deploy via the web interface
 -------------------------------
@@ -138,12 +157,12 @@ planemo    us-central1-f n1-standard-2 10.240.49.28  130.211.131.162 RUNNING
 
 Copy the files from the original machine to your local machine:
 ```
-gcloud compute copy-files --zone us-central1-f  ubuntu@planemo:/opt/galaxy/tools ./
+gcloud compute copy-files ubuntu@planemo:/opt/galaxy/tools ./
 ```
 
 Copy the files from your local machine to the new VM:
 ```
-gcloud compute copy-files --zone us-central1-f  tools ubuntu@planemo-v2:/opt/galaxy/
+gcloud compute copy-files tools ubuntu@planemo-v2:/opt/galaxy/
 ```
 
 
@@ -152,19 +171,19 @@ To Attach Additional Storage to you GCE VM
 
 You can create a volume to attach to your machine with the command
 ```
-gcloud compute disks create --size 30GB --zone us-central1-f planemo-data
+gcloud compute disks create --size 30GB planemo-data
 ```
 
 Then attach the disk to your instance
 ```
-gcloud compute instances attach-disk --zone us-central1-f --disk planemo-data planemo
+gcloud compute instances attach-disk --disk planemo-data planemo
 ```
 After the disk is attached to the instance, it will be available to be mounted.
 
 Mount and format the disk.
 --------------------------
 
-1-From the Google Compute instance, run the following command to find the disk (look for the one with the name you chose when creating the disk):
+1. From the Google Compute instance, run the following command to find the disk (look for the one with the name you chose when creating the disk):
 
 ```
 $ ls -l /dev/disk/by-id/google-*
@@ -173,12 +192,12 @@ lrwxrwxrwx 1 root root  9 Dec 13 00:34 /dev/disk/by-id/google-smc-testing-highme
 lrwxrwxrwx 1 root root 10 Dec 13 00:35 /dev/disk/by-id/google-smc-testing-highmem-part1 -> ../../sda1
 ```
 
-2-identify and create if necessary the directory to which you want to mount the disk:
+2. identify and create if necessary the directory to which you want to mount the disk:
 ```
 $ sudo mkdir /mnt/simdata1
 ```
 
-3-mount and format:
+3. mount and format:
 ```
 $ sudo /usr/share/google/safe_format_and_mount -m "mkfs.ext4 -F" /dev/sdb /mnt/simdata1/
 You may need to chmod and/or chown to allow users other than root to write to this directory.

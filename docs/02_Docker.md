@@ -47,38 +47,3 @@ RUN cd phylowgs && g++ -o mh.o  mh.cpp  util.cpp `gsl-config --cflags --libs`
 ```
 
 The first part of the docker file uses 'apt-get' commands (the Debian package management system) to install zip, wget, samtools and pip. Pip is then used to install numpy and scipy. Finally the source code for the tool is 'git cloned' and build (in /opt, which was defined as the 'WORKDIR').
-
-
-Using Planemo to Develop Docker Containers
-==========================================
-The Planemo command line tool also provides commands to help build docker tools.
-
-**Usage**:
-
-    planemo docker_build [OPTIONS] TOOL_PATH
-
-**Help**
-
-Builds (and optionally caches Docker images) for tool Dockerfiles.
-
-Loads the tool or tools referenced by `TOOL_PATH` (by default all tools in current directory), and ensures they all reference the same Docker image and then attempts to find a Dockerfile for these tools (can be explicitly specified with `--dockerfile` but by default it will check the tool's directory and the current directory as well).
-
-This command will then build and tag the image so it is ready to be tested and published. The docker\_shell command be used to test out the built image.:
-
-```
-    % planemo docker_build bowtie2.xml # asssumes Dockerfile in same dir
-    % planemo docker_shell --from_tag bowtie2.xml
-
-**Options**:
-
-    --dockerfile TEXT
-    --docker_image_cache TEXT
-    --docker_cmd TEXT          Command used to launch docker (defaults to
-                               docker).
-    --docker_sudo              Flag to use sudo when running docker.
-    --docker_sudo_cmd TEXT     sudo command to use when --docker_sudo is enabled
-                               (defaults to sudo).
-    --docker_host TEXT         Docker host to target when executing docker
-                               commands (defaults to localhost).
-    --help                     Show this message and exit.
-```

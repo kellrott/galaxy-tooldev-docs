@@ -13,8 +13,8 @@ Download example code
 
 1. Obtain the example tool set
 ```
-git clone https://github.com/ucscCancer/smc_het_example
-cd smc_het_example
+git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge.git
+cd SMC-Het-Challenge
 ```
 
 2. Navigate to the web server to view the Galaxy UI. On GCE based machines it will
@@ -57,4 +57,9 @@ You should totally explain how to use your tool here
     </tests>
 
 </tool>
+```
+
+You can upload test data to you instance by hitting the upload button, selecting 'Paste/Fetch Data' and telling galaxy to download the file
+```
+https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data/mutect_filtered_IS3_chr21.vcf
 ```
