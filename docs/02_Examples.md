@@ -3,10 +3,7 @@
 Working on Examples
 ===================
 
-These examples are based on being able to access a terminal on the
-planemo machine and work in the /opt/galaxy/tools directory. If you don't know
-how to do this, fix the instructions on how to SSH into your system. You will
-want to execute these commands as the `ubuntu` user.
+These examples are based on being able to access a terminal on the planemo machine and work in the /opt/galaxy/tools directory. If you don't know how to do this, fix the instructions on how to SSH into your system. You will want to execute these commands as the `ubuntu` user.
 
 Download example code
 ---------------------
@@ -33,3 +30,8 @@ You can upload test data to you instance by hitting the upload button, selecting
 ```
 https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data/mutect_filtered_IS3_chr21.vcf
 ```
+
+1. Select the DPC tool in the left hand tool panel
+2. Find the downloaded VCF file in the 'VCF file' selection in the center panel
+3. Click the `Execute` button at the bottom of the form
+4. The output data files should appear in the data history panel on the right hand side of the screen
