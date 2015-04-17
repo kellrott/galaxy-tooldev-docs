@@ -25,39 +25,9 @@ be `http://IP_ADDRESS/` (where IP_ADDRESS is given as the `external address` for
 > If the DPC example does not display in the tool selection panel on the left hand side of the window, try running `sudo supervisorctl restart galaxy:` to restart the Galaxy server
 
 
-Wrapper
-=======
-```
-<tool id="${TOOL_ID}" name="${TOOL_NAME}" version="1.0.0">
-    <description>Put Description Here</description>
-    <requirements>
-        <container type="docker">r-base</container>
-    </requirements>
-    <command interpreter="Rscript">
-dpc.R ${input_vcf}
-    </command>
 
-    <inputs>
-        <param format="vcf" name="input_vcf" type="data" label="VCF file" help="" />
-    </inputs>
-
-    <outputs>
-        <data format="png" name="output_png" label="DirichletProcessplotBinomial PNG" from_work_dir="DirichletProcessplotBinomial.png"/>
-        <data format="txt" name="output_density" label="DirichletProcessplotBinomial Density" from_work_dir="DirichletProcessplotBinomialdensity.txt"/>
-        <data format="txt" name="output_polygon" label="DirichletProcessplotBinomial Polygon" from_work_dir="DirichletProcessplotBinomialpolygonData.txt"/>
-    </outputs>
-
-    <help>
-You should totally explain how to use your tool here
-    </help>
-
-    <tests>
-        <test>
-        </test>
-    </tests>
-
-</tool>
-```
+Using the DPC code
+==================
 
 You can upload test data to you instance by hitting the upload button, selecting 'Paste/Fetch Data' and telling galaxy to download the file
 ```
