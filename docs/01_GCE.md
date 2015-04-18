@@ -13,15 +13,15 @@ The main steps in this procedure are:
 3. mount and format the disk
 4. copy data to the disk
 
-First go to https://console.developers.google.com to view your projects, and obtain
-your project id. If you do not already have a project use the 'Create Project' button.
 
->For Google Cloud Platform, a Project is an area to organize members, cloud resources such as GCE instances, and billing.  Every GCP project has a name and an ID. You can assign the name yourself, but the ID will be assigned automatically by GCP. You can find your project name at the [Google Developers Console](https://console.developers.google.com/project)
-
-To start up the Planemo Machine under GCE:
-------------------------------------------
+To start up the Planemo Machine under GCE
+-----------------------------------------
 
 > Parts of this documentation will cover it, but the very first thing you will want to do is make sure you have the `gcloud` command installed and are properly logged in. Follow the instruction found at https://cloud.google.com/compute/docs/gcloud-compute/
+
+First go to https://console.developers.google.com to view your projects, and obtain your project id. If you do not already have a project use the 'Create Project' button.
+
+>For Google Cloud Platform, a Project is an area to organize members, cloud resources such as GCE instances, and billing.  Every GCP project has a name and an ID. You can assign the name yourself, but the ID will be assigned automatically by GCP. You can find your project name at the [Google Developers Console](https://console.developers.google.com/project)
 
 
 Before you can can start, make sure you have done the following (again, following the instructions found at https://cloud.google.com/compute/docs/gcloud-compute/)
@@ -33,13 +33,12 @@ To authenticate
 ```
 gcloud auth login
 ```
-
 You can manage your projects on the [command line](https://cloud.google.com/compute/docs/projects) or via the [web](https://developers.google.com/console/help/new/?&_ga=1.38552803.1582672075.1425679810#managingprojects)
-To You can set the current project with the command
+
+You can set the current project with the command
 ```
 gcloud config set project YOUR-PROJECT-ID
 ```
-
 If you don't set the current project, for later steps you make get an error message like:
 ```
 ERROR: (gcloud.compute.instances.create) The required property [project] is not currently set.
@@ -49,7 +48,6 @@ $ gcloud config set project VALUE
 
 or it can be set temporarily by the environment variable [CLOUDSDK_CORE_PROJECT]
 ```
-
 Set your default zone (replace us-central1-f with your preference)
 ```
 gcloud config set compute/zone us-central1-f
@@ -64,7 +62,6 @@ Load the image into your account
 ```
 gcloud compute images create planemo-machine-image --source-uri http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
 ```
-
 This will return a read out like
 ```
 Created [https://www.googleapis.com/compute/v1/projects/level-elevator-666/global/images/planemo-machine-image].
@@ -72,6 +69,8 @@ NAME                  PROJECT            ALIAS DEPRECATED STATUS
 planemo-machine-image level-elevator-666                  READY
 ```
 
+Starting VM instance via command line
+-------------------------------------
 At this point you may need to add a firewall rule set to allow traffic to the HTTP port (80). Instructions about this can be found in the GCE [quick start](https://cloud.google.com/compute/docs/quickstart#addfirewall) manual.
 
 The command to add a HTTP ruleset is (note that we are assigning the tagset name 'http-server', this will be reference later when we create an VM instance that uses these firewall rules):
@@ -80,14 +79,12 @@ gcloud compute firewall-rules create allow-http \
     --target-tag http-server \
     --description "Incoming http allowed." --allow tcp:80
 ```
-
 To deply via command line interface
 ```
 gcloud compute instances create planemo \
     --machine-type n1-standard-2 --image planemo-machine-image \
     --tags http-server
 ```
-
 This will return a read out like
 ```
 Created [https://www.googleapis.com/compute/v1/projects/level-elevator-666/zones/us-central1-f/instances/planemo].
@@ -95,7 +92,6 @@ NAME    ZONE          MACHINE_TYPE  INTERNAL_IP    EXTERNAL_IP    STATUS
 planemo us-central1-f n1-standard-2 10.240.143.115 162.222.182.19 RUNNING
 
 ```
-
 Now if you navigate to the listed EXTERNAL_IP, you will find the running Planemo-Machine
 
 >If you go to the web page and you see an error that 'an internal server error' has occured, and the message doesn't go away, you can restart the server by sshing into the server and issuing the command `sudo supervisorctl restart galaxy:`
@@ -104,11 +100,13 @@ To SSH into the machine use (where planemo is the name of the instance you provi
 ```
 gcloud compute ssh ubuntu@planemo
 ```
-
 >Remember when you are done using your VM, turn it off. You are charged for every hour it is on, and if you forget about it, it will rack up costs quickly.
 
-To deploy via the web interface
+Starting VM instance via the web interface
 -------------------------------
+
+> There is no way to add a custom VM image to a GCE project via the web interface, so you will still need to follow the instructions related to `Loading the Planemo Image` before you can start an instance based on that image
+
 1. Go to your console at https://console.developers.google.com
 2. Select the project you want to deploy under
 3. Under the left hand menu, select Compute -> Compute Engine -> VM Instances
@@ -137,13 +135,17 @@ When updating the image, you may want to get delete the older version. There is 
 
 To delete the old image
 ```
-gcloud compute images delete planemo-machine-image
+> gcloud compute images delete planemo-machine-image
+Do you want to continue (Y/n)?  Y
+Deleted [https://www.googleapis.com/compute/v1/projects/level-elevator-666/global/images/planemo-machine-image].
 ```
 
 To get the updated image, follow the instructions starting a new image. The URL mentioned in the command line points to the current image. If you are keeping an older instance of the VM running, you will need to find a name. So you can replace `planemo` with `planemo-v2` in the instructions.
 
 Transferring data between instances
 -----------------------------------
+The easiest way to move data between two VMs is to use your personal machine as a transfer point. So we will be transferring data from the old VM to your local machine and then to the new VM.
+
 To transfer data from the old instance to the new one, have both instances running at the same time. First list running instances
 ```
 gcloud compute instances list
@@ -164,7 +166,6 @@ Copy the files from your local machine to the new VM:
 ```
 gcloud compute copy-files tools ubuntu@planemo-v2:/opt/galaxy/
 ```
-
 
 To Attach Additional Storage to you GCE VM
 ==========================================
