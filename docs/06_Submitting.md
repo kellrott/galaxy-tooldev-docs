@@ -2,6 +2,8 @@
 Submitting a workflow to the SMC-Het Challenge
 ==============================================
 
+${toc}
+
 A submission to the challenge is a Workflow. The workflow will connect to several different tools. This script will scan a Galaxy workflow, download all of the relavant tools and then upload them to your Synapse Project Folder
 
 The first step is to create a workflow that takes the challenge input files, runs the analysis and produces the outputs. There are a few additional things that need to be added to the workflow so that it can be run in the framework.
