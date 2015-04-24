@@ -26,6 +26,7 @@ To create a workflow that can be used by the evaluation system you will:
 2. For reference files, upload the required file to your project in Synapse, then put the Synapse ID (ie syn12345) into the Annotation fields of the workflow data inputs
 3. For the output file, use the 'Post Job Rename' option in the tool option menu to rename the submission file to 'OUTPUT'
 
+${image?fileName=create_workflow.gif}
 
 Test the workflow
 -----------------
