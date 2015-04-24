@@ -2,9 +2,12 @@
 
 Tool Wrapper Scripts and Parameter Files
 ========================================
+
+${toc}
+
 In addition to a runtime environment, which has been defined by Docker, a tool needs some form of wrapper script and parameter file so that other people will know how to interface with it.  These configuration files should contain all the command line parameters and parallelization directives necessary to run the tool in a production environment. The wrapper is an XML file defined by the Galaxy Tool Syntax, and it will usually be accompanied by runner scripts that do small amount of run time preparation, like creating configuration files or running data preparation commands.
 
-The example for the DPC code would be the::
+The example for the DPC code would be the:
 
 Wrapper XML File:
 https://github.com/Sage-Bionetworks/SMC-Het-Challenge
@@ -214,7 +217,7 @@ in the Simple Wrapper section.  This allows the number of threads used by the pr
 ```
 $GALAXY_SLOTS
 ```
-is actually an environmental variable defined at runtime, and not a variable that is filled in by the templating engine.
+is actually an environmental variable defined at runtime, and not a variable that is filled in by the templating engine. For more notes on parallel process settings see http://galacticengineer.blogspot.co.uk/2015/04/using-galaxyslots-for-multithreaded_22.html
 
 Catching Errors
 ---------------

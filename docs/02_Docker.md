@@ -1,7 +1,7 @@
 
 Developing a Docker Container
 =============================
-
+${image?fileName=docker_logo.png}
 To run an analysis tool in a cloud compute environment, all of the dependencies and environmental configurations that are need for running the code need to be packaged us so they can be transported. For this reason we use [Docker](https://www.docker.com/) to describe the tool environment.
 
 There is an [interactive tutorial](https://www.docker.com/tryit/) to learn how to work with the Docker command line. There is a large collection of pre-defined Docker environments that can be found at the [Docker Registry](https://registry.hub.docker.com/). These include full installations of [R](https://registry.hub.docker.com/_/r-base/) and [Python's SciKit-Learn](https://registry.hub.docker.com/u/buildo/docker-python2.7-scikit-learn/). If what you need is missing, you can also join and add your own projects to the registry.

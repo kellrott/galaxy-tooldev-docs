@@ -3,6 +3,8 @@
 Google Compute Engine based Deployment
 ====================================
 
+${toc}
+
 For a GCE-based deployment, first Install [Google Compute SDK](https://developers.google.com/cloud/sdk/) on your local machine.
 
 This section will help you set up a compute instance and a persistent disk containing challenge data. For most steps, you can choose to use either the Developers Console web interface or the Google Compute SDK command line tools. If you need help getting started with using the Google Compute, [the user documentation ](https://developers.google.com/compute/docs/console) provides a good intro/summary of how to use the console.
@@ -13,6 +15,7 @@ The main steps in this procedure are:
 3. mount and format the disk
 4. copy data to the disk
 
+${image?fileName=DREAM_Comic_GCE.png}
 
 To start up the Planemo Machine under GCE
 -----------------------------------------
@@ -124,6 +127,7 @@ Starting VM instance via the web interface
 8. If you click the IP address for the instance you should be directed the the home page of you newly
 create Galaxy SDK instance
 
+${image?fileName=launch_vm.png}
 
 Updating Planemo Image
 ----------------------
@@ -206,6 +210,22 @@ You may need to chmod and/or chown to allow users other than root to write to th
 
 Note: If you created your instance first and now need to attach the disk, you can do this using the Developers Console (select your instance, then use the "Attach" option under the "Disks" section) or using gcutil attachdisk command. Then follow the mount and format instructions above.
 
+
+
+Frequently Asked Questions
+==========================
+
+How can I make the most of my credits?
+--------------------------------------
+Be sure to save your work and delete your virtual machine instances when not in use. Google Compute Engine does not provide "shutdown" for instances to suspend their execution when not in use. The best way for users to avoid paying for a Google Compute Engine instance when not in use is to use a persistent disk (PD), and delete the VM when not in use. If they don't want to pay for the PD, they can take it one step forward and make a snapshot. Snapshot instructions: https://developers.google.com/compute/docs/disks#creating_snapshots
+
+http://stackoverflow.com/questions/19759991/how-can-i-hibernate-a-google-compute-engine-server
+
+How can I see how much I have spent?
+Please see Google's support resources at https://support.google.com/cloudbilling/answer/3540823?hl=en&ref_topic=2991962
+
+Look in the "Billing" section, also the cost "details":
+${image?fileName=billing_screen_shot.jpg}
 
 GCE Support
 ===========
