@@ -191,24 +191,41 @@ Mount and format the disk.
 1. From the Google Compute instance, run the following command to find the disk (look for the one with the name you chose when creating the disk):
 
 ```
-$ ls -l /dev/disk/by-id/google-*
-lrwxrwxrwx 1 root root  9 Dec 13 00:34 /dev/disk/by-id/google-dream-challenge-simulated-data1 -> ../../sdb
-lrwxrwxrwx 1 root root  9 Dec 13 00:34 /dev/disk/by-id/google-smc-testing-highmem -> ../../sda
-lrwxrwxrwx 1 root root 10 Dec 13 00:35 /dev/disk/by-id/google-smc-testing-highmem-part1 -> ../../sda1
+ubuntu@planemo:~$ ls -l /dev/disk/by-id/google-*
+lrwxrwxrwx 1 root root  9 May  8 23:02 /dev/disk/by-id/google-persistent-disk-0 -> ../../sda
+lrwxrwxrwx 1 root root 10 May  8 23:02 /dev/disk/by-id/google-persistent-disk-0-part1 -> ../../sda1
+lrwxrwxrwx 1 root root  9 May  8 23:03 /dev/disk/by-id/google-persistent-disk-1 -> ../../sdb
 ```
 
-2. identify and create if necessary the directory to which you want to mount the disk:
+2. Make sure the `/opt/galaxy/tools` directory is empty:
 ```
-$ sudo mkdir /mnt/simdata1
+ubuntu@planemo:~$ ls -l /dev/disk/by-id/
+total 0
 ```
 
 3. mount and format:
 ```
-$ sudo /usr/share/google/safe_format_and_mount -m "mkfs.ext4 -F" /dev/sdb /mnt/simdata1/
-You may need to chmod and/or chown to allow users other than root to write to this directory.
+$ sudo /usr/share/google/safe_format_and_mount -m "mkfs.ext4 -F" /dev/sdb /opt/galaxy/tools
 ```
 
-Note: If you created your instance first and now need to attach the disk, you can do this using the Developers Console (select your instance, then use the "Attach" option under the "Disks" section) or using gcutil attachdisk command. Then follow the mount and format instructions above.
+4. Set ownership of the disk to user `ubuntu`
+```
+ubuntu@planemo:~$ sudo chown -R ubuntu /opt/galaxy/tools
+```
+
+5. Now your external disk should be mounted by the VM
+```
+ubuntu@planemo:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1       9.9G  3.1G  6.3G  33% /
+none            4.0K     0  4.0K   0% /sys/fs/cgroup
+udev            3.7G   12K  3.7G   1% /dev
+tmpfs           749M  412K  748M   1% /run
+none            5.0M     0  5.0M   0% /run/lock
+none            3.7G     0  3.7G   0% /run/shm
+none            100M     0  100M   0% /run/user
+/dev/sdb         30G   44M   28G   1% /opt/galaxy/tools
+```
 
 
 
