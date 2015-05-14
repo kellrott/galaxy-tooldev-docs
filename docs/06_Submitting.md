@@ -9,7 +9,7 @@ A submission to the challenge is a Workflow. The workflow will connect to severa
 The first step is to create a workflow that takes the challenge input files, runs the analysis and produces the outputs. There are a few additional things that need to be added to the workflow so that it can be run in the framework.
 
 Requirements for a Galaxy workflow submitted to the SMC-Het challenge are:
-1. Inputs must be labeled by the expected file type. The VCF input file is labeled 'VCF_INPUT' and the copy number input is labeled 'CNA_INPUT'
+1. Inputs must be labeled by the expected file type. The VCF input file is labeled 'VCF\_INPUT' and the copy number input is labeled 'CNA\_INPUT'
 2. There must be no tools with parameters defined to be 'Set At Runtime'
 3. There must be one and only one instance of the 'SMC-Het Evaluator' tool [found on GitHub](https://github.com/Sage-Bionetworks/SMC-Het-Challenge) as part of the pipeline.
 
@@ -19,7 +19,7 @@ You will need to edit the workflow in the Galaxy Editor but if you have already 
 
 Creating a Workflow
 -------------------
-Go to the workflow menu, once on the Workflow page, select 'Create new Workflow', you can then name it and hit the 'Create' button. Once in the workflow editor, find the tools required in the panel on the lefthand side and click them to create an instance in the central editor panel. You can connect the tools by dragging a 'connection noodle' from the outputs on the right hand side or the first tool to the inputs on the left hand side of the next tool. The panel on the right hand side will allow you to edit parameters.
+Go to the workflow menu, once on the Workflow page, select 'Create new Workflow', you can then name it and hit the 'Create' button. Once in the workflow editor, find the tools required in the panel on the lefthand side and click them to create an instance in the central editor panel. You can connect the tools by dragging a 'connection noodle' from the outputs on the right hand side of the first tool to the inputs on the left hand side of the next tool. The panel on the right hand side will allow you to edit parameters.
 
 You will also need to create inputs to the workflow. That selection is at the bottom of the tool panel on the left hand side of the screen. Under 'Inputs' you can click 'Input Dataset' to create an instance in the editor. You will need to drag the connection noodles from that input dataset to the tools that require it.
 
@@ -52,7 +52,7 @@ The first step is to get the download URL of the workflow. To find it:
 
 1. Go to the `Workflow` panel
 2. Click the name of the workflow to be submitted
-3. When the dropdown menu appears select 'Share of Publish'
+3. When the dropdown menu appears select 'Share or Publish'
 4. If it exists, click the button `Make Workflow Accessible via Link`
 5. Below the text `Anyone can view and import this workflow by visiting the following URL` there will be the text of a URL. This is the URL you will provide to the submission program
 
