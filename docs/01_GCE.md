@@ -17,6 +17,21 @@ The main steps in this procedure are:
 
 ${image?fileName=DREAM_Comic_GCE.png}
 
+Enabling API access
+-------------------
+If you've never used GCE before, you may need to enable API based access. If you try some of the commands in the doc and see the message
+
+```
+NAME PROJECT ALIAS DEPRECATED STATUS
+ERROR: (gcloud.compute.images.create) Some requests did not succeed:
+
+Access Not Configured. The API (Compute Engine API) is not enabled for your project. Please >use the Google Developers Console to update your configuration.
+```
+You will need to:
+1. go to the webpage "Google Developers Console" at https://console.developers.google.com/project
+2. choose the project
+3. Under APIs, choose Compute Engine API and "Enable"
+
 To start up the Planemo Machine under GCE
 -----------------------------------------
 
