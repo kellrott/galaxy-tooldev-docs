@@ -29,10 +29,6 @@ Uploading data from your computer
 ---------------------------------
 https://vimeo.com/120901536
 
-Managing Histories
-------------------
-https://vimeo.com/76020876
-
 Reproducible research and Galaxy
 --------------------------------
 https://vimeo.com/76020876
