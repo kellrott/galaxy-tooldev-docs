@@ -97,7 +97,7 @@ gcloud compute firewall-rules create allow-http \
     --target-tag http-server \
     --description "Incoming http allowed." --allow tcp:80
 ```
-To deply via command line interface
+To create and start running the planemo instance via command line interface
 ```
 gcloud compute instances create planemo \
     --machine-type n1-standard-2 --image planemo-machine-image \
@@ -151,6 +151,11 @@ If there is a need to update the SDK image, usually because bug fixes or new fea
 When updating the image, you may want to get delete the older version. There is no need to keep an image if there is an instance running based on that image. Deleting the image isn't required if you are willing to pay for the extra storage space, and can manage the names of multiple images. In the previous instructions, we referred to the disk image as `planemo-machine-image`, but you could easily create a second image named `planemo-machine-image-v2`.
 
 >Deleting an image is different then deleting an instance. The image is simply the start source, and once an instance as been started it is no longer dependent on the image. You work is stored in the instance. Do not delete that until you've copied it somewhere else.
+
+If you want to stop a VM, but not delete it:
+```
+gcloud compute instances stop planemo
+```
 
 To delete the old image
 ```
