@@ -3,7 +3,7 @@
 Vagrant Based Development
 ========================
 
-As an alternative to the Google Cloud based development kit, it is possible to run the Planemo SDK on your personal machine. For the purposes of the SMC-Het challenge, we provide this as an alternative but encourage contestants to use Google Cloud VMs and take advantage of the free compute credits provide.
+As an alternative to the Google Cloud based development kit, it is possible to run the Planemo SDK on your personal machine. For the purposes of the SMC-Het challenge, we provide this as an alternative but encourage contestants to use Google Cloud VMs and take advantage of the free compute credits provided.
 
 > For this to work you'll need to install both [VirtualBox](https://www.virtualbox.org/) and [Vargrant](https://www.vagrantup.com/). And note, building a new VM may take some time.
 
