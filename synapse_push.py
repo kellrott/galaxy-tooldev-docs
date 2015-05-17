@@ -114,7 +114,7 @@ if __name__ == "__main__":
                 owner=PROJECT_ID,
                 parentWikiId=WIKI_BASE,
                 markdown=entry['doc'])
-            #syn.store(wiki)
+            wiki = syn.store(wiki)
         else:
             wiki = syn.getWiki(PROJECT_ID, entry['wiki_id'])
             if entry['doc'] != wiki.markdown:

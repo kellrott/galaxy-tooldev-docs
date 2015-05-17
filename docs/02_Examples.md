@@ -26,7 +26,8 @@ be `http://IP_ADDRESS/` (where IP_ADDRESS is given as the `external address` for
 Using the DPC code
 ==================
 
-You can upload test data to you instance by hitting the upload button, selecting 'Paste/Fetch Data' and telling galaxy to download the file
+You can upload test data to your instance by hitting the upload button: ${image?fileName=upload_button.png}
+then selecting 'Paste/Fetch Data' and telling galaxy to download the file
 ```
 https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data/mutect_filtered_IS3_chr21.vcf
 ```
