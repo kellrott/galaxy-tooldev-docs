@@ -142,7 +142,7 @@ Starting VM instance via the web interface
 8. If you click the IP address for the instance you should be directed the the home page of you newly
 create Galaxy SDK instance
 
-${image?fileName=launch_vm.png}
+${image?fileName=GCE_Launch.png}
 
 Updating Planemo Image
 ----------------------

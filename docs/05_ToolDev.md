@@ -16,9 +16,7 @@ Tool Development Cycle
 planemo tool_init
 ```
 2. Reload the Galaxy panel. You tool should now appear in the list of tools
-
 3. Build Dockerfile to describe how your container is built
-
 4. Run docker build to construct a working container
 ```
 planemo docker_build
@@ -28,7 +26,6 @@ planemo docker_build
 planemo lint my_cool_tool.xml
 ```
 6. Test your tool
-
 Note: If you think that Galaxy is failing dynamically to reload your tool. Use
 the command
 ```
@@ -71,3 +68,13 @@ TODO: Fill in help.
 ```
 
 More examples of how to use the `tool_init` method can be found at in the [Planemo Docs](http://planemo.readthedocs.org/en/latest/writing_standalone.html#the-basics)
+
+
+Web Based IDE
+-------------
+
+Included in the Planemo VM is an installation of [Codebox](https://www.codebox.io/). You can find it by going to `http://<ip address>`/ide/
+
+It automatically loads the the /opt/galaxy/tools directory, which is the same directory Galaxy scans to look for installed tools.
+
+${image?fileName=codebox_ide.png}

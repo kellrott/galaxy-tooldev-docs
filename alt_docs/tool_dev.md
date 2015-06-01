@@ -147,3 +147,99 @@ ln -s ${input_bam} input.bam
 ln -s ${input_bam.metadata.bam_index} input.bam.bai
 ```
 And then pass in input.bam as an input to the program.
+
+
+
+
+Declaring Input Parameters
+--------------------
+
+Lets take a few of the parameters from the help command and build Galaxy `param` blocks to stick in the tool's `inputs` block.
+
+```
+-V        shift quality by '(-Q) - 33'
+```
+
+In the previous section we saw `param` block of type `data` for input files, but there are many different kinds of parameters one can use. Flag parameters such as the above `-V` parameter are frequently represented by `boolean` parameters in Galaxy tool XML.
+```
+<param name="shift_quality" type="boolean" label="Shift quality"
+truevalue="-V" falsevalue=""
+help="shift quality by '(-Q) - 33' (-V)" />
+```
+We can then stick `$shift_quality` in our `command` block and if the user has selected this option it will be expanded as `-V` (since we have defined this as the `truevalue`). If the user hasn't selected this option `$shift_quality` will just expand as an empty string and not affect the generated command line.
+
+Now consider the following `seqtk seq` parameters:
+
+  ```
+  -q INT    mask bases with quality lower than INT [0]
+  -X INT    mask bases with quality higher than INT [255]
+  ```
+
+These can be translated into Galaxy parameters as:
+  ```
+  <param name="quality_min" type="integer" label="Mask bases with quality lower than"
+  value="0" min="0" max="255" help="(-q)" />
+  <param name="quality_max" type="integer" label="Mask bases with quality higher than"
+  value="255" min="0" max="255" help="(-X)" />
+  ```
+These can be add to the command tag as
+  ```
+  -q $quality_min -X $quality_max.
+  ```
+
+Conditional Parameters
+----------------------
+The previous parameters were simple because they always appeared, now consider.
+```
+  -M FILE   mask regions in BED or name list FILE [null]
+```
+
+We can mark this `data` type `param` as optional by adding the attribute `optional="true"`.
+```
+  <param name="mask_regions" type="data" label="Mask regions in BED"
+  format="bed" help="(-M)" optional="true" />
+```
+Then instead of just using `$mask_regions` directly in the `command` block, one can wrap it in an `if` [statement](http://www.cheetahtemplate.org/docs/users_guide_html/users_guide.html#SECTION0001040000000000000000).
+
+```
+  #if $mask_regions
+  -M $mask_regions
+  #end if
+```
+
+Next consider the parameters:
+```
+  -s INT    random seed (effective with -f) [11]
+  -f FLOAT  sample FLOAT fraction of sequences [1]
+```
+
+In this case, the `-s` random seed parameter should only be seen or used if the sample parameter is set. We can express this using a `conditional` block.
+```
+  <conditional>
+    <param name="sample" type="boolean" label="Sample fraction of sequences" />
+    <when value="true">
+      <param name="fraction" label="Fraction" type="float" value="1.0" help="(-f)" />
+      <param name="seed" label="Random seed" type="integer" value="11" help="(-s)" />
+    </when>
+    <when value="false">
+    </when>
+  </conditional>
+```
+
+In our command block, we can again use an `if` statement to include these parameters.
+
+```
+  #if $sample
+  -f $sample.faction -s $sample.seed
+  #end if
+```
+
+Notice we must reference the parameters using the `sample.` prefix since they are defined within the `sample` conditional block.
+
+For tools like this where there are many options but in most uses the defaults are preferred - a common idiom is to break the parameters into simple and advanced sections using a `conditional`.
+
+
+
+
+
+A wrapper can provide a simple set of command lines to be executed. Or it can provide a more complex wrapper for which there is both a defined command line as well as a runner script which does additional task such file and config setup as well as simple SMP parallelization (as allowed by the GALAXY_SLOTS environment variable).  In the case of the MuTect wrapper, the runner script 'chunks' the genome into intervals to be run under MuTect independently and concatenates the result VCF files at the end of the run.
