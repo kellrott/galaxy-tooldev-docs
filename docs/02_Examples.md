@@ -36,3 +36,5 @@ https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data
 2. Find the downloaded VCF file in the 'VCF file' selection in the center panel
 3. Click the `Execute` button at the bottom of the form
 4. The output data files should appear in the data history panel on the right hand side of the screen
+
+> If you get the following error: `/var/run/docker.sock: no such file or directory.` `Are you trying to connect to a TLS-enabled daemon without TLS?`, try restarting the docker daemon: `sudo service docker restart`.

@@ -4,18 +4,18 @@ Submitting a workflow to the SMC-Het Challenge
 
 ${toc}
 
-A submission to the challenge is a Workflow. The workflow will connect to several different tools. This script will scan a Galaxy workflow, download all of the relavant tools and then upload them to your Synapse Project Folder
+A submission to the challenge is a [Galaxy workflow](https://wiki.galaxyproject.org/Learn/AdvancedWorkflow). Submitting the workflow is done by the `dream_galaxy_submit` script found in the GitHub repo [SMC-Het-Challenge](https://github.com/Sage-Bionetworks/SMC-Het-Challenge). This script will scan a Galaxy workflow, download all of the relevant tools and then upload them to your Synapse Project.
 
-The first step is to create a workflow that takes the challenge input files, runs the analysis and produces the outputs. There are a few additional things that need to be added to the workflow so that it can be run in the framework.
-
-Requirements for a Galaxy workflow submitted to the SMC-Het challenge are:
+The first step is to create a workflow that takes the challenge input files, runs the analysis and produces the outputs. Requirements for a Galaxy workflow submitted to the SMC-Het challenge are:
 1. Inputs must be labeled by the expected file type. The VCF input file is labeled 'VCF\_INPUT' and the copy number input is labeled 'CNA\_INPUT'
 2. There must be no tools with parameters defined to be 'Set At Runtime'
 3. There must be one and only one instance of the 'SMC-Het Evaluator' tool [found on GitHub](https://github.com/Sage-Bionetworks/SMC-Het-Challenge) as part of the pipeline.
 
+In Galaxy, workflows are created in one of two ways. The first is to extract a workflow from the 'History', then edit to create a streamlined workflow. The second is to create the workflow from scratch in the [workflow editor](https://wiki.galaxyproject.org/Learn/AdvancedWorkflow/BasicEditing/WorkflowEditorUnannotated).
+
 Extracting a Workflow
 -------------------
-You will need to edit the workflow in the Galaxy Editor but if you have already done all the operations by hand, you can select the 'History Options' drop down menu on the right hand of the Analysis panel above the history, which looks like a gear. There will be a selection called 'Extract Workflow', which will give you the option of creating a workflow based on your previous actions in the history.
+Galaxy lets you perform data analysis operations, keeping a history of the tools you run and their parameters. To extract a workflow from your history, select the 'History Options' drop down menu on the right hand of the Analysis panel above the history, which looks like a gear. There will be a selection called 'Extract Workflow', which will give you the option of creating a workflow based on your previous actions. You will likely need to clean up the workflow in the Galaxy Editor.
 
 Creating a Workflow
 -------------------
