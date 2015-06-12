@@ -14,7 +14,6 @@ The main steps in this procedure are:
 4. mount and format the disk
 5. run the provided sample workflow via Galaxy!
 
-${image?fileName=DREAM_Comic_GCE.png}
 
 Google Cloud Platform Quick Start
 ---------------------------------
@@ -29,7 +28,7 @@ Google Cloud Platform Quick Start
 
     * Name: planemo-machine-image
     * Source type: Cloud storage object
-    * Cloud storage object path: galaxyproject_images/planemo_machine.image.tar.gz
+    * Cloud storage object path: `galaxyproject_images/planemo_machine.image.tar.gz`
 
     TODO screenshot here of Compute -> Compute Engine -> Images -> New Image with dialog filled in
 
@@ -38,7 +37,7 @@ Google Cloud Platform Quick Start
     * Name: planemo-data
     * Zone: choose your preferred zone but be sure to make note of it and use the same zone when creating your VM
     * Source type: None (blank disk)
-    * Size: we recommend at least ??GB (TODO: add recommended # of GB)
+    * Size: we recommend at least 30GB
 
     TODO screenshot here of Compute -> Compute Engine -> Disks -> New Disk with dialog filled in
 
@@ -57,7 +56,8 @@ Google Cloud Platform Quick Start
     4. Click on Disks -> Add Item and select the disk you created in the prior step.
     5. Hit Create
 
-    TODO: screenshot of instance creation dialog all filled in.
+${image?fileName=GCE_Launch.png}
+
 
 (5) SSH to the newly created VM.
 
@@ -138,7 +138,7 @@ sudo supervisorctl restart galaxy:
     2. Find the downloaded VCF file in the 'VCF file' selection in the center panel
     3. Click the Execute button at the bottom of the form
     4. The output data files should appear in the data history panel on the right hand side of the screen
-    
+
     TODO: screenshot of completed run of the workflow.
 
 Ta da!  You have set up your Google Compute engine virtual machine running Galaxy and executed the sample workflow.
@@ -183,7 +183,7 @@ gcloud config set project YOUR-PROJECT-ID
 >  You can find your project ID at the [Google Developers Console](https://console.developers.google.com/project).
 
     If you don't set the current project, for later steps you make get an error message like:
-    
+
     ```
     ERROR: (gcloud.compute.instances.create) The required property [project] is not currently set.
     You may set it for your current workspace by running:
