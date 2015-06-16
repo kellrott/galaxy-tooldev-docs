@@ -27,7 +27,7 @@ Using the DPC code
 ==================
 
 You can upload test data to your instance by hitting the upload button: ${image?fileName=upload_button.png}
-then selecting 'Paste/Fetch Data' and telling galaxy to download the file
+then selecting 'Paste/Fetch Data' and telling galaxy to download the file the URL
 ```
 https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data/mutect_filtered_IS3_chr21.vcf
 ```
