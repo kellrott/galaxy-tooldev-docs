@@ -4,6 +4,17 @@ Developing a Docker Container
 ${image?fileName=docker_logo.png}
 To run an analysis tool in a cloud compute environment, all of the dependencies and environmental configurations that are need for running the code need to be packaged so that they can be transported. For this reason we use [Docker](https://www.docker.com/) to describe the tool environment.
 
+Introduction To Docker
+----------------------
+${youtube?videoId=YiZkHUbE6N0}
+
+
+Building a Dockerfile
+---------------------
+${youtube?videoId=gG_x28rDxus}
+
+${youtube?videoId=L6bjTlVdc6U}
+
 There is an [interactive tutorial](https://www.docker.com/tryit/) to learn how to work with the Docker command line. There is a large collection of pre-defined Docker environments that can be found at the [Docker Registry](https://registry.hub.docker.com/). These include full installations of [R](https://registry.hub.docker.com/_/r-base/) and [Python's SciKit-Learn](https://registry.hub.docker.com/u/buildo/docker-python2.7-scikit-learn/). If what you need is missing, you can also join and add your own projects to the registry.
 
 If the environment you need is not available on the registry you can provide a build description as part of your Galaxy tool. For this to work there needs to be a "Dockerfile" which describes all dependencies and environmental setup required to run the tool.  This includes any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies.  
