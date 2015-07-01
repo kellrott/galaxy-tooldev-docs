@@ -9,26 +9,22 @@ ${image?fileName=galaxy_launch_screen.png}
 Tutorials
 =========
 
-Introduction to Galaxy
-----------------------
-https://usegalaxy.org/u/aun1/p/galaxy101
-
 Learning Galaxy
 ---------------
 https://wiki.galaxyproject.org/Learn
 
 Video Resources
 ===============
+Introduction to Galaxy
+----------------------
+https://vimeo.com/131811884
 
-Galaxy 101
-----------
-http://screencast.g2.bx.psu.edu/galaxy101/
-There is a nice screen cast that will help introduce how to use the Galaxy server found at https://usegalaxy.org/. The parts about creating a user account won't apply to using the Planemo SDK, as that comes pre-configured with a 'dev' account.
+The Challenges of Reproducibility
+---------------------------------
+https://vimeo.com/album/3456144/video/131811882
+https://vimeo.com/76020876
 
 Uploading data from your computer
 ---------------------------------
 https://vimeo.com/120901536
 
-Reproducible research and Galaxy
---------------------------------
-https://vimeo.com/76020876
