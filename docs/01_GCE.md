@@ -123,7 +123,7 @@ sudo service docker restart
 sudo supervisorctl restart galaxy:
 ```
 
-(8) Go back to the Developers Console and click the little pop-out arrow to the right of theexternal IP address for the instance.  Your browser will be redirected the the home page for Galaxy on your VM.
+(8) Go back to the Developers Console and click the little pop-out arrow to the right of the external IP address for the instance.  Your browser will be redirected the the home page for Galaxy on your VM.
 
     TODO: screenshot of Galaxy home page
 
