@@ -3,14 +3,12 @@ pages:
 - [index.md, Creating Galaxy tools and workflows]
 - [01_Galaxy.md, Introduction, Working with Galaxy]
 - [01_GCE.md, Introduction, Google Compute Engine]
-- [01_Vagrant.md, Introduction, Vagrant]
 - [02_Docker.md, Development, Docker]
 - [02_ToolWrapper.md, Development, Tool Wrapper Syntax]
 - [02_Examples.md, Development, Working With Examples]
 - [05_ToolDev.md, Development, Tool Development]
 - [06_Submitting.md, Submitting, Submitting Code]
-- [07_FAQ.md, Help, FAQ]
-- [07_Glossary.md, Help, Glossary]
+- [07_Advanced.md, Advanced, Advanced]
 imports:
 -
     file: planemo/docs/commands/docker_build.rst
