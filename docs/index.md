@@ -23,6 +23,11 @@ To develop a Galaxy wrapped tool, the steps are:
 3. Test the tool inside a Galaxy environment to debug issues
 
 
-Before any development can happen, you must first deploy a Planemo-Machine in your VM
-system of choice. The current deployment options are: [Google Cloud Engine](https://www.synapse.org/#!Synapse:syn2786217/wiki/209793) or
-[Virtual Box](https://www.synapse.org/#!Synapse:syn2786217/wiki/209795).
+Before any development can happen, you must first deploy a Planemo-Machine the [Google Cloud Engine](https://www.synapse.org/#!Synapse:syn2786217/wiki/209793)
+
+Video Instructions
+==================
+
+${youtube?videoId=W8gBki65g0c}
+
+
