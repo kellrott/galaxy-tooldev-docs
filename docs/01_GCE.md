@@ -20,50 +20,58 @@ Google Cloud Platform Quick Start
 
 (1) First go to https://console.developers.google.com to view your projects. If you do not already have a project use the 'Create Project' button.
 
-    TODO: screenshot here of a project home screen
+${image?fileName=Google_Developer_Create_Project.png}
+
+    > Once you have created your project go to the Home page, which should look like this:
+
+${image?fileName=Google_Developer_Home.png}
 
     > For Google Cloud Platform, a Project is an area to organize members, cloud resources such as GCE instances, and billing.  Every GCP project has an ID and number. You can choose your own ID, but the number will be assigned automatically by GCP.
 
 (2) Load the planemo image into your project.
 
+    > Next you will need to load the planemo image by going to Compute -> Compute Engine -> Images -> New Image in the left hand menu. Change the following values in the form and then press "Create"
+
     * Name: planemo-machine-image
     * Source type: Cloud storage object
-    * Cloud storage object path: `galaxyproject_images/planemo_machine.image.tar.gz`
+    * Cloud storage object path: `galaxyproject_images/planemo_machine_smc.image.tar.gz`
 
-    TODO screenshot here of Compute -> Compute Engine -> Images -> New Image with dialog filled in
+${image?fileName=Google_Developer_Create_Image.png}
 
 (3) Create your data disk.
+
+    > Now we need to create the disk to store your data on. Go to  Compute -> Compute Engine -> Disks -> New Disk in the menu and change the following information in the form then press "Create" (as you did before).
 
     * Name: planemo-data
     * Zone: choose your preferred zone but be sure to make note of it and use the same zone when creating your VM
     * Source type: None (blank disk)
     * Size: we recommend at least 30GB
 
-    TODO screenshot here of Compute -> Compute Engine -> Disks -> New Disk with dialog filled in
+${image?fileName=Google_Developer_Create_Disk.png}
 
 (4) Create your VM.
 
-    1. Compute -> Compute Engine -> VM Instances
-      If a dialog pops up asking what you want to do, select 'Create Instance', otherwise click the 'New Instance' button.
-    2. Fill out the instance creation dialog, this will include:
-        1. Set the name (in these examples, we name the machines 'planemo')
-        2. Select the Zone you want to deploy in (should be the same as for the disk created in the prior step)
-        3. Select the machine type of choice, a system with at least 6GB of RAM is expected
-        4. For the Boot Disk -> Change -> Your Image
-        5. For the image, Select 'planemo-machine-image'
-        6. Allow HTTP and HTTPS traffic
-    3. Click on the 'Management, disk, networking, access & security options' to expand the drop-down.
-    4. Click on Disks -> Add Item and select the disk you created in the prior step.
-    5. Hit Create
+    > Head to Compute -> Compute Engine -> VM Instances. If a dialog pops up asking what you want to do, select 'Create Instance', otherwise click the 'New Instance' button.
+      Fill out the instance creation dialog with the following changes:
+        * Name: planemo
+        * Zone: same as the one you chose for the data disk
+        * Machine Type: you choice, but a system with at least 6GB of RAM is expected (click Change to modify)
+        * Boot Disk: image you created previously (click Change and select Your Image)
+        * Allow HTTP and HTTPS traffic
+        * Data Disk: add the data disk you created previously
+                    - Click on the 'Management, disk, networking, access & security options' to expand the drop-down.
+                    - Click on Disks -> Add Item and select the disk you created in the prior step.
+
+     Once you're done, hit 'Create'
 
 ${image?fileName=GCE_Launch.png}
 
 
 (5) SSH to the newly created VM.
 
-    To see your instance list, navigate back to Compute -> Compute Engine -> VM Instances
+    To see your instance list, navigate back to Compute -> Compute Engine -> VM Instances then click the 'SSH' button at the bottom under the 'Connect' header.
 
-    TODO: screenshot of list of one instance and the ssh button
+${image?fileName=Google_Developer_SSH.png}
 
 (6) Format and mount your data disk.
 
@@ -75,11 +83,10 @@ sudo su ubuntu
     Run the following command to find the disk (look for the one with the name you chose when creating the disk).
 ```
 ubuntu@planemo:~$ ls -l /dev/disk/by-id/google-*
-lrwxrwxrwx 1 root root  9 May  8 23:02 /dev/disk/by-id/google-persistent-disk-0 -> ../../sda
-lrwxrwxrwx 1 root root 10 May  8 23:02 /dev/disk/by-id/google-persistent-disk-0-part1 -> ../../sda1
-lrwxrwxrwx 1 root root  9 May  8 23:03 /dev/disk/by-id/google-persistent-disk-1 -> ../../sdb
+lrwxrwxrwx 1 root root  9 May  8 23:02 /dev/disk/by-id/google-planemo ->  ../../sda
+lrwxrwxrwx 1 root root 10 May  8 23:02 /dev/disk/by-id/google-planemo-data -> ../../sda1
+lrwxrwxrwx 1 root root  9 May  8 23:03 /dev/disk/by-id/google-planemo-part1 -> ../../sdb
 ```
-TODO: update the above output to match the disk name we used in the above screenshot
 
     Make sure the `/opt/galaxy/tools` directory is empty.
 ```
@@ -123,14 +130,14 @@ sudo service docker restart
 sudo supervisorctl restart galaxy:
 ```
 
-(8) Go back to the Developers Console and click the little pop-out arrow to the right of the external IP address for the instance.  Your browser will be redirected the the home page for Galaxy on your VM.
+(8) Go back to the Developers Console and click the little pop-out arrow to the right of theexternal IP address for the instance.  Your browser will be redirected the the home page for Galaxy on your VM.
 
-    TODO: screenshot of Galaxy home page
+${image?fileName=Galaxy_Home_Page.png}
 
 (9) Upload data.
 
-    You can upload test data to your instance by hitting the upload button and then selecting 'Paste/Fetch Data' and telling galaxy to download the file `https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data/mutect_filtered_IS3_chr21.vcf`
-    TODO: screenshot of upload small sample file
+    If you require reference data to run your program, you can upload it to the instance by hitting the upload button and then selecting 'Paste/Fetch Data' and telling galaxy to download the file
+${image?fileName=Galaxy_upload_Data.png}
 
 (10) Run the workflow.
 
@@ -139,6 +146,7 @@ sudo supervisorctl restart galaxy:
     3. Click the Execute button at the bottom of the form
     4. The output data files should appear in the data history panel on the right hand side of the screen
 
+    TODO: ensure this step works
     TODO: screenshot of completed run of the workflow.
 
 Ta da!  You have set up your Google Compute engine virtual machine running Galaxy and executed the sample workflow.
@@ -165,7 +173,7 @@ For any questions about Google Compute Engine, please post to the forum on [Stac
 For assistance from a Google Support Engineer, please see https://cloud.google.com/support/.
 
 How do I install and configure the gcloud command line tool?
--------------------------------------------------------------
+------------------------------------------------------------
 
 (1) First go to https://console.developers.google.com to view your projects, and obtain your project ID. If you do not already have a project use the 'Create Project' button.
 
@@ -260,8 +268,7 @@ Copy the files from your local machine to the new VM:
 gcloud compute copy-files tools ubuntu@planemo-v2:/opt/galaxy/
 ```
 
-How can I set up my VM using the command line tools?
----------------------------------------------------
+## How can I set up my VM using the command line tools?
 
 ### Load the Planemo Image
 
@@ -269,7 +276,7 @@ How can I set up my VM using the command line tools?
 
 Load the image into your project:
 ```
-gcloud compute images create planemo-machine-image --source-uri http://storage.googleapis.com/galaxyproject_images/planemo_machine.image.tar.gz
+gcloud compute images create planemo-machine-image --source-uri http://storage.googleapis.com/galaxyproject_images/planemo_machine_smc.image.tar.gz
 ```
 This will return a read out like:
 ```
