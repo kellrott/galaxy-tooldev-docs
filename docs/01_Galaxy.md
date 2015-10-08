@@ -1,4 +1,9 @@
 
+Starting out on SMC-Het
+=======================
+${youtube?videoId=W8gBki65g0c}
+
+
 Learning Galaxy
 ===============
 
@@ -6,25 +11,18 @@ Before you can develop tools for Galaxy, it would be useful to know how people i
 
 ${image?fileName=galaxy_launch_screen.png}
 
-Tutorials
-=========
-
-Learning Galaxy
----------------
 https://wiki.galaxyproject.org/Learn
 
-Video Resources
-===============
 Introduction to Galaxy
 ----------------------
-https://vimeo.com/131811884
+${vimeo?vimeoId=131811884}
 
 The Challenges of Reproducibility
 ---------------------------------
-https://vimeo.com/album/3456144/video/131811882
-https://vimeo.com/76020876
+${vimeo?vimeoId=131811882}
+${vimeo?vimeoId=76020876}
+
 
 Uploading data from your computer
 ---------------------------------
-https://vimeo.com/120901536
-
+${vimeo?vimeoId=120901536}

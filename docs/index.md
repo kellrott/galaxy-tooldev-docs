@@ -25,9 +25,4 @@ To develop a Galaxy wrapped tool, the steps are:
 
 Before any development can happen, you must first deploy a Planemo-Machine the [Google Cloud Engine](https://www.synapse.org/#!Synapse:syn2786217/wiki/209793)
 
-Video Instructions
-==================
-
-${youtube?videoId=W8gBki65g0c}
-
 
