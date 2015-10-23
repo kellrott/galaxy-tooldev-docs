@@ -1,8 +1,5 @@
 
-
-Working on Examples
-===================
-
+We've provided examples of how to develop tools for the system at https://github.com/Sage-Bionetworks/SMC-Het-Challenge-Examples
 These examples are based on being able to access a terminal on the planemo machine and work in the `/opt/galaxy/tools` directory. If you don't know how to do this, fix the instructions on how to SSH into your system. You will want to execute these commands as the `ubuntu` user.
 
 Download example code

@@ -1,8 +1,11 @@
 
 Starting out on SMC-Het
 =======================
+For an introduction on how to turn on the development VM using the Google Compute environment.
 ${youtube?videoId=W8gBki65g0c}
 
+How to do tool development using the VM
+${youtube?videoId=12TMLO8tEdM}
 
 Learning Galaxy
 ===============

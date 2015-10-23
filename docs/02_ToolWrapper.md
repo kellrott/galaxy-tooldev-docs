@@ -1,5 +1,4 @@
-Tool Wrapper Scripts and Parameter Files
-========================================
+
 ${toc}
 
 In addition to a runtime environment, which has been defined by Docker, a tool needs some form of wrapper script and parameter file so that other people will know how to interface with it.  These configuration files should contain all the command line parameters and parallelization directives necessary to run the tool in a production environment. The wrapper is an XML file defined by the Galaxy Tool Syntax, and it will usually be accompanied by runner scripts that do small amount of run time preparation, like creating configuration files or running data preparation commands.
@@ -16,11 +15,64 @@ Optional Sections of the Tool Configuration include
 2. Unit tests
 3. Documentation and help
 
-Tutorials
----------
+Tutorials and Docs
+------------------
+
+[Galaxy Tool Config Syntax](https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax)
+
 A quick introduction to the [Galaxy Tool Wrapper](http://www.slideshare.net/pjacock/galaxy-tools)
 
 A video introduction to [Galaxy Tool Integration](http://screencast.g2.bx.psu.edu/toolIntegration/). The introduction of this video doesn't apply to the Planemo SDK VM. Information related to tool development starts at around minute 4.
+
+Template
+--------
+
+If your tool is very simple and you don't want to spend a lot of time working on
+a XML definition for it, you can use the template:
+
+```
+<tool id="simple_tool" name="My Simple Tool" version="1.0.0">
+  <!--
+  To use this template:
+  1) Change the tool id above to a unique string
+  2) Write a wrapper to your program that takes 3 arguments (in this order):
+    - The VCF file
+    - The CNA file
+    - The output file
+  3) Change the 'my-program' in the requirements -> container section
+  4) If your container is not in the Docker registry (https://registry.hub.docker.com/), create a Dockerfile
+  5) Change 'my_program' in the command section to the name of your program
+    (if the program is not in the PATH, use the full path of the program)
+  
+  This program template only outputs a single file, so if you wish to submit to multiple 
+  sub-challenges, replicate the 'OUTPUT_FILE_1' in the command line and the 
+  'outputs' section, or make one tool template per subchallenge
+  -->
+	<description>A simple example</description>
+	<requirements>
+		<container type="docker">my-program</container>
+	</requirements>
+	<command>
+my_program ${VCF_FILE} ${CNA_FILE} ${OUTPUT_FILE_1}
+	</command>
+
+	<inputs>
+		<param format="vcf" name="VCF_FILE" type="data" label="VCF file" help="" />
+    <param format="txt" name="CNA_FILE" type="data" label="CNA file" help="" />
+	</inputs>
+
+	<outputs>
+		<data format="txt" name="OUTPUT_FILE_1" label="Output File"/>
+	</outputs>
+
+	<help>
+You should totally explain how to use your tool here
+	</help>
+
+</tool>
+
+```
+
 
 Tool Wrapper Stanzas
 --------------------

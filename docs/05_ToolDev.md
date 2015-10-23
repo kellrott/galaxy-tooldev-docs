@@ -29,7 +29,7 @@ planemo lint my_cool_tool.xml
 Note: If you think that Galaxy is failing dynamically to reload your tool. Use
 the command
 ```
-supervisorctl restart galaxy:
+restart_galaxy
 ```
 
 Base XML config file
